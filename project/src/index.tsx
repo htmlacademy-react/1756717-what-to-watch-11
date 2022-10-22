@@ -15,9 +15,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <App
-      title = {PromoFilm.Title}
-      genre = {PromoFilm.Genre}
-      year = {PromoFilm.Year}
+      title={PromoFilm.Title}
+      genre={PromoFilm.Genre}
+      year={PromoFilm.Year}
     />
   </React.StrictMode>,
 );

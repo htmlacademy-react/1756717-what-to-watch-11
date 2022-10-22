@@ -6,7 +6,7 @@ type AppScreenProps = {
   year: number;
 }
 
-function App({title, genre, year}: AppScreenProps): JSX.Element {
+function App({ title, genre, year }: AppScreenProps): JSX.Element {
   return (
     <WelcomeScreen
       title={title}

@@ -6,7 +6,130 @@ type WelcomeScreenProps = {
   year: number;
 }
 
-function WelcomeScreen({title, genre, year}: WelcomeScreenProps): JSX.Element {
+const filmCardMockList = [
+  {
+    id: 1,
+    src: 'img/fantastic-beasts-the-crimes-of-grindelwald.jpg',
+    alt: 'Fantastic Beasts: The Crimes of Grindelwald',
+    filmTitle: 'Fantastic Beasts: The Crimes of Grindelwald',
+  },
+  {
+    id: 2,
+    src: 'img/bohemian-rhapsody.jpg',
+    alt: 'Bohemian Rhapsody',
+    filmTitle: 'Bohemian Rhapsody',
+  },
+  {
+    id: 3,
+    src: 'img/macbeth.jpg',
+    alt: 'Macbeth',
+    filmTitle: 'Macbeth',
+  },
+  {
+    id: 4,
+    src: 'img/aviator.jpg',
+    alt: 'Aviator',
+    filmTitle: 'Aviator',
+  },
+  {
+    id: 5,
+    src: 'img/we-need-to-talk-about-kevin.jpg',
+    alt: 'We need to talk about Kevin',
+    filmTitle: 'We need to talk about Kevin',
+  },
+  {
+    id: 6,
+    src: 'img/what-we-do-in-the-shadows.jpg',
+    alt: 'What We Do in the Shadows',
+    filmTitle: 'What We Do in the Shadows',
+  },
+  {
+    id: 7,
+    src: 'img/revenant.jpg',
+    alt: 'Revenant',
+    filmTitle: 'Revenant',
+  },
+  {
+    id: 8,
+    src: 'img/johnny-english.jpg',
+    alt: 'Johnny English',
+    filmTitle: 'Johnny English',
+  },
+  {
+    id: 9,
+    src: 'img/shutter-island.jpg',
+    alt: 'Shutter Island',
+    filmTitle: 'Shutter Island',
+  },
+  {
+    id: 10,
+    src: 'img/pulp-fiction.jpg',
+    alt: 'Pulp Fiction',
+    filmTitle: 'Pulp Fiction',
+  },
+  {
+    id: 11,
+    src: 'img/no-country-for-old-men.jpg',
+    alt: 'No Country for Old Men',
+    filmTitle: 'No Country for Old Men',
+  },
+  {
+    id: 12,
+    src: 'img/snatch.jpg',
+    alt: 'Snatch',
+    filmTitle: 'Snatch',
+  },
+  {
+    id: 13,
+    src: 'img/moonrise-kingdom.jpg',
+    alt: 'Moonrise Kingdom',
+    filmTitle: 'Moonrise Kingdom',
+  },
+  {
+    id: 14,
+    src: 'img/seven-years-in-tibet.jpg',
+    alt: 'Seven Years in Tibet',
+    filmTitle: 'Seven Years in Tibet',
+  },
+  {
+    id: 15,
+    src: 'img/midnight-special.jpg',
+    alt: 'Midnight Special',
+    filmTitle: 'Midnight Special',
+  },
+  {
+    id: 16,
+    src: 'img/war-of-the-worlds.jpg',
+    alt: 'War of the Worlds',
+    filmTitle: 'War of the Worlds',
+  },
+  {
+    id: 17,
+    src: 'img/dardjeeling-limited.jpg',
+    alt: 'Dardjeeling Limited',
+    filmTitle: 'Dardjeeling Limited',
+  },
+  {
+    id: 18,
+    src: 'img/orlando.jpg',
+    alt: 'Orlando',
+    filmTitle: 'Orlando',
+  },
+  {
+    id: 19,
+    src: 'img/mindhunter.jpg',
+    alt: 'Mindhunter',
+    filmTitle: 'Mindhunter',
+  },
+  {
+    id: 20,
+    src: 'img/midnight-special.jpg',
+    alt: 'Midnight Special',
+    filmTitle: 'Midnight Special',
+  },
+];
+
+function WelcomeScreen({ title, genre, year }: WelcomeScreenProps): JSX.Element {
   return (
     <>
       <section className="film-card">
@@ -108,26 +231,7 @@ function WelcomeScreen({title, genre, year}: WelcomeScreenProps): JSX.Element {
           </ul>
 
           <div className="catalog__films-list">
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
+            {filmCardMockList.map(({ id, src, alt, filmTitle }) => <FilmCard key={id} src={src} alt={alt} filmTitle={filmTitle} />)}
           </div>
 
           <div className="catalog__more">

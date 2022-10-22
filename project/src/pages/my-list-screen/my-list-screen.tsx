@@ -1,5 +1,62 @@
 import FilmCard from '../../components/film-card/film-card';
 
+const filmFavouriteMockList = [
+  {
+    id: 1,
+    src: 'img/fantastic-beasts-the-crimes-of-grindelwald.jpg',
+    alt: 'Fantastic Beasts: The Crimes of Grindelwald',
+    filmTitle: 'Fantastic Beasts: The Crimes of Grindelwald',
+  },
+  {
+    id: 2,
+    src: 'img/bohemian-rhapsody.jpg',
+    alt: 'Bohemian Rhapsody',
+    filmTitle: 'Bohemian Rhapsody',
+  },
+  {
+    id: 3,
+    src: 'img/macbeth.jpg',
+    alt: 'Macbeth',
+    filmTitle: 'Macbeth',
+  },
+  {
+    id: 4,
+    src: 'img/aviator.jpg',
+    alt: 'Aviator',
+    filmTitle: 'Aviator',
+  },
+  {
+    id: 5,
+    src: 'img/we-need-to-talk-about-kevin.jpg',
+    alt: 'We need to talk about Kevin',
+    filmTitle: 'We need to talk about Kevin',
+  },
+  {
+    id: 6,
+    src: 'img/what-we-do-in-the-shadows.jpg',
+    alt: 'What We Do in the Shadows',
+    filmTitle: 'What We Do in the Shadows',
+  },
+  {
+    id: 7,
+    src: 'img/revenant.jpg',
+    alt: 'Revenant',
+    filmTitle: 'Revenant',
+  },
+  {
+    id: 8,
+    src: 'img/johnny-english.jpg',
+    alt: 'Johnny English',
+    filmTitle: 'Johnny English',
+  },
+  {
+    id: 9,
+    src: 'img/shutter-island.jpg',
+    alt: 'Shutter Island',
+    filmTitle: 'Shutter Island',
+  },
+];
+
 function MyListScreen(): JSX.Element {
   return (
     <div className="user-page">
@@ -29,15 +86,7 @@ function MyListScreen(): JSX.Element {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <div className="catalog__films-list">
-          <FilmCard />
-          <FilmCard />
-          <FilmCard />
-          <FilmCard />
-          <FilmCard />
-          <FilmCard />
-          <FilmCard />
-          <FilmCard />
-          <FilmCard />
+          {filmFavouriteMockList.map(({ id, src, alt, filmTitle }) => <FilmCard key={id} src={src} alt={alt} filmTitle={filmTitle} />)}
         </div>
       </section>
 
