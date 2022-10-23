@@ -1,8 +1,4 @@
-type FilmCardProps = {
-  src: string;
-  alt: string;
-  filmTitle: string;
-}
+import { FilmCardProps } from '../../types/types';
 
 function FilmCard({ src, alt, filmTitle }: FilmCardProps): JSX.Element {
   return (
