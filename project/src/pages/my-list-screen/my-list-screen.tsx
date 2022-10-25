@@ -1,16 +1,17 @@
+import { Helmet } from 'react-helmet-async';
 import FilmCard from '../../components/film-card/film-card';
 import filmsMock from '../../mocks/films';
+import Logo from '../../components/logo/logo';
 
 function MyListScreen(): JSX.Element {
   return (
     <div className="user-page">
+      <Helmet>
+        <title>WTW. Favourite</title>
+      </Helmet>
       <header className="page-header user-page__head">
         <div className="logo">
-          <a href="main.html" className="logo__link">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </a>
+          <Logo />
         </div>
 
         <h1 className="page-title user-page__title">My list <span className="user-page__film-count">9</span></h1>
