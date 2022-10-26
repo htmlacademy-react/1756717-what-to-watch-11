@@ -9,12 +9,8 @@ import MyListScreen from '../../pages/my-list-screen/my-list-screen';
 import MovieScreen from '../../pages/movie-screen/movie-screen';
 import AuthScreen from '../../pages/auth-screen/auth-screen';
 import PrivateRoute from '../private-route/private-route';
+import { AppScreenProps } from '../../types/types';
 
-type AppScreenProps = {
-  title: string;
-  genre: string;
-  year: number;
-}
 
 function App({ title, genre, year }: AppScreenProps): JSX.Element {
   return (
@@ -29,14 +25,13 @@ function App({ title, genre, year }: AppScreenProps): JSX.Element {
             </PrivateRoute>
           }
           />
-          <Route path={AppRoute.Film} element={<MovieScreen />}>
-            <Route path={AppRoute.AddReview} element={
-              <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-                <ReviewScreen />
-              </PrivateRoute>
-            }
-            />
-          </Route>
+          <Route path={AppRoute.Film} element={<MovieScreen />} />
+          <Route path={AppRoute.AddReview} element={
+            <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+              <ReviewScreen />
+            </PrivateRoute>
+          }
+          />
           <Route path={AppRoute.Player} element={<PlayerScreen />} />
           <Route path='*' element={<NotFoundScreen />} />
         </Routes>
