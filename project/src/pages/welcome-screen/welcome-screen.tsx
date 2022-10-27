@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import FilmCard from '../../components/film-card/film-card';
 import filmsMock from '../../mocks/films';
 import { WelcomeScreenProps } from '../../types/types';
@@ -6,6 +7,9 @@ function WelcomeScreen({ title, genre, year }: WelcomeScreenProps): JSX.Element 
   return (
     <>
       <section className="film-card">
+        <Helmet>
+          <title>WTW. Welcome!</title>
+        </Helmet>
         <div className="film-card__bg">
           <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
         </div>

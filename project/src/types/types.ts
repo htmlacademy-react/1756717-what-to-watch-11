@@ -32,5 +32,14 @@ type FilmCardProps = {
   filmTitle: string;
 }
 
+type AppScreenProps = {
+  title: string;
+  genre: string;
+  year: number;
+}
 
-export type { Film, Films, WelcomeScreenProps, FilmCardProps};
+type LogoProps = {
+  light?: boolean;
+}
+
+export type { Film, Films, WelcomeScreenProps, FilmCardProps, AppScreenProps, LogoProps};
