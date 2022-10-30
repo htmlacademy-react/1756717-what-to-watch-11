@@ -1,9 +1,21 @@
+import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import FilmCard from '../../components/film-card/film-card';
-import filmsMock from '../../mocks/films';
-import { WelcomeScreenProps } from '../../types/types';
+import FilmsList from '../../components/films-list/films-list';
+import UserBlock from '../../components/user-block/user-block';
+import { WelcomeScreenProps, Film } from '../../types/types';
+import { AppRoute } from '../../const';
 
-function WelcomeScreen({ title, genre, year }: WelcomeScreenProps): JSX.Element {
+function WelcomeScreen({ title, genre, year, films }: WelcomeScreenProps): JSX.Element {
+  const navigate = useNavigate();
+  const promoFilm = films.find((elem: Film) => elem.name === title);
+
+  const handlePlayPromoFilmButtonClick = () => {
+    if (promoFilm === undefined) {
+      return navigate('*');
+    }
+    return navigate(`${AppRoute.Player}/${promoFilm.id}`);
+  };
+
   return (
     <>
       <section className="film-card">
@@ -25,16 +37,7 @@ function WelcomeScreen({ title, genre, year }: WelcomeScreenProps): JSX.Element 
             </a>
           </div>
 
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
-            </li>
-          </ul>
+          <UserBlock />
         </header>
 
         <div className="film-card__wrap">
@@ -51,7 +54,7 @@ function WelcomeScreen({ title, genre, year }: WelcomeScreenProps): JSX.Element 
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
+                <button className="btn btn--play film-card__button" onClick={handlePlayPromoFilmButtonClick} type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -107,9 +110,7 @@ function WelcomeScreen({ title, genre, year }: WelcomeScreenProps): JSX.Element 
             </li>
           </ul>
 
-          <div className="catalog__films-list">
-            {filmsMock.map(({ id, posterImage, name, description }) => <FilmCard key={id} src={posterImage} alt={description} filmTitle={name} />)}
-          </div>
+          <FilmsList films={films}/>
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>

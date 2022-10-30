@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
+import { filmsMock } from './mocks/films';
 
 const PromoFilm = {
   Title: 'The Grand Budapest Hotel',
@@ -18,6 +19,7 @@ root.render(
       title={PromoFilm.Title}
       genre={PromoFilm.Genre}
       year={PromoFilm.Year}
+      films={filmsMock}
     />
   </React.StrictMode>,
 );
