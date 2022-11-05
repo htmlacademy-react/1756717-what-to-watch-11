@@ -19,7 +19,7 @@ function FilmsList({ films }: FilmsListProps): JSX.Element {
 
   return (
     <div className="catalog__films-list" onMouseOver={handleFilmCardMouseOver} onMouseLeave={handleFilmCardMouseLeave}>
-      {films.map(({ id, posterImage, name }) => <FilmCard key={id} id={id} src={posterImage} alt={name} filmTitle={name} isActive={id === activeCardId} />)}
+      {films.map(({ id, posterImage, name }) => <FilmCard key={id} id={id} src={posterImage} alt={name} filmTitle={name} posterImage= {posterImage} isActive={id === activeCardId} />)}
     </div>
   );
 }
