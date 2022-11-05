@@ -10,6 +10,8 @@ function FilmsList({ films }: FilmsListProps): JSX.Element {
     const parent = target.parentElement as Element;
     if (target.className === 'small-film-card__link' || parent.classList.contains('small-film-card')) {
       setActiveCard(Number(parent.id));
+    } else {
+      setActiveCard(null);
     }
   };
 
@@ -19,7 +21,7 @@ function FilmsList({ films }: FilmsListProps): JSX.Element {
 
   return (
     <div className="catalog__films-list" onMouseOver={handleFilmCardMouseOver} onMouseLeave={handleFilmCardMouseLeave}>
-      {films.map(({ id, posterImage, name }) => <FilmCard key={id} id={id} src={posterImage} alt={name} filmTitle={name} posterImage= {posterImage} isActive={id === activeCardId} />)}
+      {films.map((film) => <FilmCard key={film.id} film={film} isActive={film.id === activeCardId} />)}
     </div>
   );
 }

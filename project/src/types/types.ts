@@ -43,12 +43,7 @@ type WelcomeScreenProps = {
 }
 
 type FilmCardProps = {
-  id: number;
-  src: string;
-  alt: string;
-  filmTitle: string;
-  posterImage: string;
-  previewVideoLink: string;
+  film: Film;
   isActive: boolean;
 }
 
@@ -89,8 +84,7 @@ type ReviewFormData = {
 }
 
 type VideoPlayerProps = {
-  src: string;
-  poster: string;
+  film: Film;
   autoPlay: boolean;
 }
 

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { VideoPlayerProps } from '../../types/types';
 
-function VideoPlayer({ src, poster, autoPlay }: VideoPlayerProps): JSX.Element {
+function VideoPlayer({ film, autoPlay }: VideoPlayerProps): JSX.Element {
   const [, setIsLoading] = useState(true);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
@@ -36,7 +36,7 @@ function VideoPlayer({ src, poster, autoPlay }: VideoPlayerProps): JSX.Element {
 
 
   return (
-    <video src={src} poster={poster} width="280" height="175" ref={videoRef} />
+    <video src={film.previewVideoLink} poster={film.posterImage} width="280" height="175" ref={videoRef} muted/>
   );
 }
 
