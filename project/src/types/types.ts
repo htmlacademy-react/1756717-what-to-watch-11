@@ -85,7 +85,6 @@ type ReviewFormData = {
 
 type VideoPlayerProps = {
   film: Film;
-  autoPlay: boolean;
 }
 
 export type { Film, Films, WelcomeScreenProps, FilmCardProps, AppScreenProps, LogoProps, Reviews, FilmsListProps, MyListScreenProps, PlayerScreenProps, ReviewScreenProps, MovieScreenProps, ReviewFormData, VideoPlayerProps };
