@@ -44,7 +44,7 @@ type WelcomeScreenProps = {
 
 type FilmCardProps = {
   film: Film;
-  isActive: boolean;
+  /*isActive: boolean;*/
 }
 
 type FilmsListProps = {

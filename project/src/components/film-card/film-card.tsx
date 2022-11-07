@@ -1,12 +1,28 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, playerDelay } from '../../const';
 import { FilmCardProps } from '../../types/types';
 import VideoPlayer from '../video-player/video-player';
 
-function FilmCard({ film, isActive }: FilmCardProps): JSX.Element {
+function FilmCard({ film }: FilmCardProps): JSX.Element {
+  const [isActive, setActiveCard] = useState(false);
+
+  let timeoutID: NodeJS.Timeout;
+
+  const handleFilmCardMouseEnter = () => {
+    timeoutID = setTimeout(() => {
+      setActiveCard(true);
+    }, playerDelay);
+  };
+
+
+  const handleFilmCardMouseLeave = () => {
+    clearTimeout(timeoutID);
+    setActiveCard(false);
+  };
 
   return (
-    <article className="small-film-card catalog__films-card" id={film.id.toString()}>
+    <article className="small-film-card catalog__films-card" id={film.id.toString()} onMouseEnter={handleFilmCardMouseEnter} onMouseLeave={handleFilmCardMouseLeave}>
       <div className="small-film-card__image">
         {
           isActive ?
