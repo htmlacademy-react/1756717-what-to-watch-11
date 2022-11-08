@@ -43,11 +43,8 @@ type WelcomeScreenProps = {
 }
 
 type FilmCardProps = {
-  id: number;
-  src: string;
-  alt: string;
-  filmTitle: string;
-  isActive: boolean;
+  film: Film;
+  /*isActive: boolean;*/
 }
 
 type FilmsListProps = {
@@ -86,4 +83,8 @@ type ReviewFormData = {
   comment: string;
 }
 
-export type { Film, Films, WelcomeScreenProps, FilmCardProps, AppScreenProps, LogoProps, Reviews, FilmsListProps, MyListScreenProps, PlayerScreenProps, ReviewScreenProps, MovieScreenProps, ReviewFormData };
+type VideoPlayerProps = {
+  film: Film;
+}
+
+export type { Film, Films, WelcomeScreenProps, FilmCardProps, AppScreenProps, LogoProps, Reviews, FilmsListProps, MyListScreenProps, PlayerScreenProps, ReviewScreenProps, MovieScreenProps, ReviewFormData, VideoPlayerProps };
