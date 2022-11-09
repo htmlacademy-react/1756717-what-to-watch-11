@@ -4,11 +4,11 @@ import Logo from '../../components/logo/logo';
 import UserBlock from '../../components/user-block/user-block';
 import { MovieScreenProps, Film } from '../../types/types';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import { getRatingLevel } from '../../util';
 import { AppRoute } from '../../const';
 import FilmsList from '../../components/films-list/films-list';
+import FilmTabs from '../../components/film-tabs/film-tabs';
 
-function MovieScreen({films}: MovieScreenProps): JSX.Element {
+function MovieScreen({films, reviews}: MovieScreenProps): JSX.Element {
   const params = useParams();
   const navigate = useNavigate();
 
@@ -74,37 +74,7 @@ function MovieScreen({films}: MovieScreenProps): JSX.Element {
               <img src={film.posterImage} alt={`${film.name} poster`} width="218" height="327" />
             </div>
 
-            <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
-                    <a href="#" className="film-nav__link">Overview</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Details</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
-
-              <div className="film-rating">
-                <div className="film-rating__score">{film.rating}</div>
-                <p className="film-rating__meta">
-                  <span className="film-rating__level">{getRatingLevel(film.rating)}</span>
-                  <span className="film-rating__count">{`${film.scoresCount} ratings`}</span>
-                </p>
-              </div>
-
-              <div className="film-card__text">
-                <p>{film.description}</p>
-
-                <p className="film-card__director"><strong>{`Director: ${film.director}`}</strong></p>
-
-                <p className="film-card__starring"><strong>{`Starring: ${film.starring[0]} and other`}</strong></p>
-              </div>
-            </div>
+            <FilmTabs film={film} reviews={reviews}/>
           </div>
         </div>
       </section>

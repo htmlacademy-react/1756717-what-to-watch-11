@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { useParams, useNavigate } from 'react-router-dom';
 import { PlayerScreenProps, Film } from '../../types/types';
-import { getFormatTime } from '../../util';
+import { getFormatPlayerTime } from '../../util';
 import { AppRoute } from '../../const';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
@@ -28,7 +28,7 @@ function PlayerScreen({films}: PlayerScreenProps): JSX.Element {
             <progress className="player__progress" value="0" max="100"></progress>
             <div className="player__toggler" style={{ left: '0%' }}>Toggler</div>
           </div>
-          <div className="player__time-value">{getFormatTime(film.runTime)}</div>
+          <div className="player__time-value">{getFormatPlayerTime(film.runTime)}</div>
         </div>
 
         <div className="player__controls-row">

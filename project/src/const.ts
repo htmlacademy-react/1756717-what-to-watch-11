@@ -13,4 +13,10 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+export enum TabValue {
+  Overview = 'overview',
+  Details = 'details',
+  Reviews = 'reviews',
+}
+
 export const playerDelay = 1000;

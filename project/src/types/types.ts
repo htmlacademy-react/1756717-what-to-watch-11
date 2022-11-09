@@ -11,7 +11,7 @@ type Film = {
   rating: number;
   scoresCount: number;
   director: string;
-  starring: [string];
+  starring: string[];
   runTime: number;
   genre: string;
   released: number;
@@ -44,7 +44,6 @@ type WelcomeScreenProps = {
 
 type FilmCardProps = {
   film: Film;
-  /*isActive: boolean;*/
 }
 
 type FilmsListProps = {
@@ -56,6 +55,7 @@ type AppScreenProps = {
   genre: string;
   year: number;
   films: Films;
+  reviews: Reviews;
 }
 
 type MyListScreenProps = {
@@ -72,6 +72,7 @@ type ReviewScreenProps = {
 
 type MovieScreenProps = {
   films: Films;
+  reviews: Reviews;
 }
 
 type LogoProps = {
@@ -87,4 +88,25 @@ type VideoPlayerProps = {
   film: Film;
 }
 
-export type { Film, Films, WelcomeScreenProps, FilmCardProps, AppScreenProps, LogoProps, Reviews, FilmsListProps, MyListScreenProps, PlayerScreenProps, ReviewScreenProps, MovieScreenProps, ReviewFormData, VideoPlayerProps };
+type FilmReviewProps = {
+  review: Review;
+}
+
+type FilmTabOverViewProps = {
+  film: Film;
+}
+
+type FilmTabDetailsProps = {
+  film: Film;
+}
+
+type FilmTabReviewsProps = {
+  reviews: Reviews;
+}
+
+type FilmTabsProps = {
+  film: Film;
+  reviews: Reviews;
+}
+
+export type { Film, Films, WelcomeScreenProps, FilmCardProps, AppScreenProps, LogoProps, Review, Reviews, FilmsListProps, MyListScreenProps, PlayerScreenProps, ReviewScreenProps, MovieScreenProps, ReviewFormData, VideoPlayerProps, FilmReviewProps, FilmTabOverViewProps, FilmTabDetailsProps, FilmTabReviewsProps, FilmTabsProps };
