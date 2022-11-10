@@ -12,7 +12,7 @@ import PrivateRoute from '../private-route/private-route';
 import { AppScreenProps } from '../../types/types';
 
 
-function App({ title, genre, year, films }: AppScreenProps): JSX.Element {
+function App({ title, genre, year, films, reviews }: AppScreenProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -25,7 +25,7 @@ function App({ title, genre, year, films }: AppScreenProps): JSX.Element {
             </PrivateRoute>
           }
           />
-          <Route path={`${AppRoute.Film}/:id`} element={<MovieScreen films={films}/>} />
+          <Route path={`${AppRoute.Film}/:id`} element={<MovieScreen films={films} reviews={reviews}/>} />
           <Route path={`${AppRoute.Film}/:id/${AppRoute.AddReview}`} element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
               <ReviewScreen films={films}/>

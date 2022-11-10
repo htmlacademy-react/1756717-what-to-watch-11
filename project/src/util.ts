@@ -1,10 +1,20 @@
-export const getFormatTime = (time: number) => {
+export const getFormatPlayerTime = (time: number) => {
   if (time >= 60) {
     const hours = Math.floor(time / 60);
     const minutes = time - hours * 60;
     return `-${hours}:${minutes}:00`;
   } else {
     return `-${time}:00`;
+  }
+};
+
+export const getFormatDetailsFilmRunTime = (time: number) => {
+  if (time >= 60) {
+    const hours = Math.floor(time / 60);
+    const minutes = time - hours * 60;
+    return `${hours}h ${minutes}m`;
+  } else {
+    return `${time}m`;
   }
 };
 
@@ -21,3 +31,9 @@ export const getRatingLevel = (rating: number) => {
     return 'Awesome';
   }
 };
+
+export const getColumnList = (arr: string[]) => arr.join(', \n');
+
+export const getRowList = (arr: string[]) => arr.join(', ');
+
+export const getFormatReviewDate = (date: string) => new Date(date).toLocaleDateString('en-us', { year: 'numeric', month: 'long', day: 'numeric' });
