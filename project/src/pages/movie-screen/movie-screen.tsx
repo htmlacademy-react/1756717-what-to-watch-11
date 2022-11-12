@@ -2,22 +2,33 @@ import { Helmet } from 'react-helmet-async';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import UserBlock from '../../components/user-block/user-block';
-import { MovieScreenProps, Film } from '../../types/types';
+import { Film, Films } from '../../types/films';
+import { Reviews } from '../../types/reviews';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import { AppRoute } from '../../const';
+import { AppRoute, FilmSettings } from '../../const';
 import FilmsList from '../../components/films-list/films-list';
 import FilmTabs from '../../components/film-tabs/film-tabs';
+import { useEffect } from 'react';
+
+type MovieScreenProps = {
+  films: Films;
+  reviews: Reviews;
+}
 
 function MovieScreen({films, reviews}: MovieScreenProps): JSX.Element {
   const params = useParams();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [params.id]);
 
   const film = films.find((elem: Film) => elem.id.toString() === params.id);
   if (film === undefined) {
     return <NotFoundScreen />;
   }
 
-  const similarFilms = films.slice(0, 4);
+  const similarFilms = films.slice(0, FilmSettings.MaxSimilarFilmsAmount);
 
   return (
     <>

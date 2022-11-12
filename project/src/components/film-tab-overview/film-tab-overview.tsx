@@ -1,7 +1,11 @@
-import { FilmTabOverViewProps } from '../../types/types';
+import { Film } from '../../types/films';
 import { getRatingLevel, getRowList } from '../../util';
 
-function FilmTabOverView({film}: FilmTabOverViewProps): JSX.Element {
+type FilmTabOverviewProps = {
+  film: Film;
+}
+
+function FilmTabOverview({film}: FilmTabOverviewProps): JSX.Element {
   return (
     <>
       <div className="film-rating">
@@ -23,4 +27,4 @@ function FilmTabOverView({film}: FilmTabOverViewProps): JSX.Element {
   );
 }
 
-export default FilmTabOverView;
+export default FilmTabOverview;

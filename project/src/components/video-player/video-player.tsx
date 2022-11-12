@@ -1,5 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-import { VideoPlayerProps } from '../../types/types';
+import { Film } from '../../types/films';
+
+type VideoPlayerProps = {
+  film: Film;
+}
 
 function VideoPlayer({ film }: VideoPlayerProps): JSX.Element {
   const [, setIsLoading] = useState(true);

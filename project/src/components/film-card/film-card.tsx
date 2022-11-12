@@ -1,8 +1,12 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute, playerDelay } from '../../const';
-import { FilmCardProps } from '../../types/types';
+import { Film } from '../../types/films';
 import VideoPlayer from '../video-player/video-player';
+
+type FilmCardProps = {
+  film: Film;
+}
 
 function FilmCard({ film }: FilmCardProps): JSX.Element {
   const [isActive, setActiveCard] = useState(false);

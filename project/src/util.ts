@@ -1,3 +1,6 @@
+import { FilmSettings } from './const';
+import { Films } from './types/films';
+
 export const getFormatPlayerTime = (time: number) => {
   if (time >= 60) {
     const hours = Math.floor(time / 60);
@@ -37,3 +40,15 @@ export const getColumnList = (arr: string[]) => arr.join(', \n');
 export const getRowList = (arr: string[]) => arr.join(', ');
 
 export const getFormatReviewDate = (date: string) => new Date(date).toLocaleDateString('en-us', { year: 'numeric', month: 'long', day: 'numeric' });
+
+export const getFilmsSelectedByGenre = (films: Films, genre: string) => {
+  if (genre === FilmSettings.DefaultFilterGenre) {
+    return films;
+  }
+  return films.filter((film) => film.genre === genre);
+};
+
+export const getGenres = (films: Films): string[] => {
+  const genres = new Set(films.map((film) => film.genre));
+  return [FilmSettings.DefaultFilterGenre as string, ...genres];
+};

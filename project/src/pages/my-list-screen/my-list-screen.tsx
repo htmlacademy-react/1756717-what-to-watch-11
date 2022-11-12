@@ -2,7 +2,11 @@ import { Helmet } from 'react-helmet-async';
 import FilmsList from '../../components/films-list/films-list';
 import Logo from '../../components/logo/logo';
 import UserBlock from '../../components/user-block/user-block';
-import { MyListScreenProps } from '../../types/types';
+import { Films } from '../../types/films';
+
+type MyListScreenProps = {
+  films: Films;
+}
 
 function MyListScreen({films}: MyListScreenProps): JSX.Element {
   return (

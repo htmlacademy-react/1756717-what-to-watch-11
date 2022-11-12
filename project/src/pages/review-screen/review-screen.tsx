@@ -1,11 +1,15 @@
 import { Helmet } from 'react-helmet-async';
 import { useParams, Link } from 'react-router-dom';
-import { ReviewScreenProps, Film } from '../../types/types';
+import { Film, Films } from '../../types/films';
 import { AppRoute } from '../../const';
 import Logo from '../../components/logo/logo';
 import UserBlock from '../../components/user-block/user-block';
 import ReviewForm from '../../components/review-form/review-form';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+
+type ReviewScreenProps = {
+  films: Films;
+}
 
 function ReviewScreen({films}: ReviewScreenProps): JSX.Element {
   const params = useParams();

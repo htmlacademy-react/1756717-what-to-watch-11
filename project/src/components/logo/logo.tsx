@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
-import { LogoProps } from '../../types/types';
+
+type LogoProps = {
+  light?: boolean;
+}
 
 function Logo({ light }: LogoProps): JSX.Element {
   return (

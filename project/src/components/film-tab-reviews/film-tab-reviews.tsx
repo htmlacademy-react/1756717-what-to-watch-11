@@ -1,5 +1,9 @@
-import { FilmTabReviewsProps } from '../../types/types';
+import { Reviews } from '../../types/reviews';
 import FilmReview from '../film-review/film-review';
+
+type FilmTabReviewsProps = {
+  reviews: Reviews;
+}
 
 function FilmTabReviews({reviews}: FilmTabReviewsProps): JSX.Element {
   return (

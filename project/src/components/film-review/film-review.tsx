@@ -1,5 +1,9 @@
-import { FilmReviewProps } from '../../types/types';
+import { Review } from '../../types/reviews';
 import { getFormatReviewDate } from '../../util';
+
+type FilmReviewProps = {
+  review: Review;
+}
 
 function FilmReview({review}: FilmReviewProps): JSX.Element {
   return (

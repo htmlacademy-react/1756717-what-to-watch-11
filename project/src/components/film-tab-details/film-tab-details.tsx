@@ -1,5 +1,9 @@
-import { FilmTabDetailsProps } from '../../types/types';
+import { Film } from '../../types/films';
 import { getFormatDetailsFilmRunTime, getColumnList } from '../../util';
+
+type FilmTabDetailsProps = {
+  film: Film;
+}
 
 function FilmTabDetails({film}: FilmTabDetailsProps): JSX.Element {
 

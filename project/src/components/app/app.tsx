@@ -9,8 +9,16 @@ import MyListScreen from '../../pages/my-list-screen/my-list-screen';
 import MovieScreen from '../../pages/movie-screen/movie-screen';
 import AuthScreen from '../../pages/auth-screen/auth-screen';
 import PrivateRoute from '../private-route/private-route';
-import { AppScreenProps } from '../../types/types';
+import { Reviews } from '../../types/reviews';
+import { Films } from '../../types/films';
 
+type AppScreenProps = {
+  title: string;
+  genre: string;
+  year: number;
+  films: Films;
+  reviews: Reviews;
+}
 
 function App({ title, genre, year, films, reviews }: AppScreenProps): JSX.Element {
   return (
