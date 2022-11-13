@@ -28,7 +28,7 @@ function WelcomeScreen({ title, genre, year, films }: WelcomeScreenProps): JSX.E
 
   const currentGenre = useAppSelector((state) => state.genre);
 
-  const selectedFilms = useAppSelector((state) => getFilmsSelectedByGenre(state.films, state.genre));
+  const selectedFilms = useAppSelector((state) => getFilmsSelectedByGenre(state.films, currentGenre));
 
   const genres = getGenres(films);
 
@@ -93,7 +93,7 @@ function WelcomeScreen({ title, genre, year, films }: WelcomeScreenProps): JSX.E
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenresList currentGenre={currentGenre} genres={genres} films={films}/>
+          <GenresList currentGenre={currentGenre} genres={genres}/>
 
           <FilmsList films={selectedFilms}/>
 

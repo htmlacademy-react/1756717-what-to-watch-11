@@ -11,6 +11,8 @@ import AuthScreen from '../../pages/auth-screen/auth-screen';
 import PrivateRoute from '../private-route/private-route';
 import { Reviews } from '../../types/reviews';
 import { Films } from '../../types/films';
+import { useAppDispatch } from '../../hooks';
+import { setFilms } from '../../store/action';
 
 type AppScreenProps = {
   title: string;
@@ -21,6 +23,11 @@ type AppScreenProps = {
 }
 
 function App({ title, genre, year, films, reviews }: AppScreenProps): JSX.Element {
+
+  const dispatch = useAppDispatch();
+
+  dispatch(setFilms(films));
+
   return (
     <HelmetProvider>
       <BrowserRouter>

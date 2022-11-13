@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { FilmSettings } from '../const';
 import { filmsMock } from '../mocks/films';
-import { changeGenre, setFilmsByGenre } from './action';
+import { changeGenre, setFilms } from './action';
 
 const initialState = {
   genre: FilmSettings.DefaultFilterGenre as string,
@@ -13,7 +13,7 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(changeGenre, (state, action) => {
       state.genre = action.payload;
     })
-    .addCase(setFilmsByGenre, (state, action) => {
+    .addCase(setFilms, (state, action) => {
       state.films = action.payload;
     });
 });
