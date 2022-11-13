@@ -6,7 +6,7 @@ import { Film, Films } from '../../types/films';
 import { AppRoute } from '../../const';
 import GenresList from '../../components/genres-list/genres-list';
 import { useAppSelector } from '../../hooks';
-import { getGenres } from '../../util';
+import { getFilmsSelectedByGenre, getGenres } from '../../util';
 
 type WelcomeScreenProps = {
   title: string;
@@ -28,7 +28,7 @@ function WelcomeScreen({ title, genre, year, films }: WelcomeScreenProps): JSX.E
 
   const currentGenre = useAppSelector((state) => state.genre);
 
-  const selectedFilms = useAppSelector((state) => state.films);
+  const selectedFilms = useAppSelector((state) => getFilmsSelectedByGenre(state.films, state.genre));
 
   const genres = getGenres(films);
 

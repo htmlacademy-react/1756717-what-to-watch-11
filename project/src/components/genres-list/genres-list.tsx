@@ -2,9 +2,8 @@ import cn from 'classnames';
 import { MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
-import { changeGenre, getFilmsByGenre } from '../../store/action';
+import { changeGenre, setFilmsByGenre } from '../../store/action';
 import { Films } from '../../types/films';
-import { getFilmsSelectedByGenre } from '../../util';
 
 type GenreListProps = {
   currentGenre: string;
@@ -32,7 +31,7 @@ function GenresList({ currentGenre, genres, films }: GenreListProps): JSX.Elemen
             onClick={(evt: MouseEvent) => {
               evt.preventDefault();
               dispatch(changeGenre(genre));
-              dispatch(getFilmsByGenre(getFilmsSelectedByGenre(films, genre)));
+              dispatch(setFilmsByGenre(films));
             }}
           >
             {genre}
