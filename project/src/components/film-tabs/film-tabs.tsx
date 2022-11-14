@@ -1,10 +1,16 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { TabValue } from '../../const';
-import { FilmTabsProps } from '../../types/types';
+import { Reviews } from '../../types/reviews';
+import { Film } from '../../types/films';
 import FilmTabDetails from '../film-tab-details/film-tab-details';
-import FilmTabOverView from '../film-tab-overview/film-tab-overview';
+import FilmTabOverview from '../film-tab-overview/film-tab-overview';
 import FilmTabReviews from '../film-tab-reviews/film-tab-reviews';
+
+type FilmTabsProps = {
+  film: Film;
+  reviews: Reviews;
+}
 
 function FilmTabs({film, reviews}: FilmTabsProps): JSX.Element {
   const [activeTab, setActiveTab] = useState<string>(TabValue.Overview);
@@ -12,7 +18,7 @@ function FilmTabs({film, reviews}: FilmTabsProps): JSX.Element {
   const renderTab = () => {
     switch (activeTab) {
       case TabValue.Overview:
-        return <FilmTabOverView film={film} />;
+        return <FilmTabOverview film={film} />;
       case TabValue.Details:
         return <FilmTabDetails film={film} />;
       case TabValue.Reviews:

@@ -1,9 +1,13 @@
 import { Helmet } from 'react-helmet-async';
 import { useParams, useNavigate } from 'react-router-dom';
-import { PlayerScreenProps, Film } from '../../types/types';
+import { Film, Films } from '../../types/films';
 import { getFormatPlayerTime } from '../../util';
 import { AppRoute } from '../../const';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+
+type PlayerScreenProps = {
+  films: Films;
+}
 
 function PlayerScreen({films}: PlayerScreenProps): JSX.Element {
   const params = useParams();

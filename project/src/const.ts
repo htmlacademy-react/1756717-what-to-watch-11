@@ -19,4 +19,9 @@ export enum TabValue {
   Reviews = 'reviews',
 }
 
+export enum FilmSettings {
+  MaxSimilarFilmsAmount = 4,
+  DefaultFilterGenre = 'All genre',
+}
+
 export const playerDelay = 1000;

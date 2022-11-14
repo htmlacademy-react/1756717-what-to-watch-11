@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from 'react';
-import { ReviewFormData } from '../../types/types';
+import { ReviewFormData } from '../../types/reviews';
 
 function ReviewForm(): JSX.Element {
   const [formData, setFormData] = useState<ReviewFormData>({

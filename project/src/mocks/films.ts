@@ -1,4 +1,4 @@
-import { Films } from '../types/types';
+import { Films } from '../types/films';
 
 export const filmsMock: Films = [
   {
