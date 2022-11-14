@@ -22,6 +22,7 @@ export enum TabValue {
 export enum FilmSettings {
   MaxSimilarFilmsAmount = 4,
   DefaultFilterGenre = 'All genre',
+  FilmsPerStep = 8,
 }
 
 export const playerDelay = 1000;

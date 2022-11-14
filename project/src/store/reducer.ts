@@ -1,11 +1,12 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { FilmSettings } from '../const';
 import { filmsMock } from '../mocks/films';
-import { changeGenre, setFilms } from './action';
+import { changeGenre, resetFilmsInListAmount, setFilms, setFilmsInListAmount } from './action';
 
 const initialState = {
   genre: FilmSettings.DefaultFilterGenre as string,
   films: filmsMock,
+  filmsPerStep: FilmSettings.FilmsPerStep as number,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -15,6 +16,12 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setFilms, (state, action) => {
       state.films = action.payload;
+    })
+    .addCase(setFilmsInListAmount, (state) => {
+      state.filmsPerStep = state.filmsPerStep + FilmSettings.FilmsPerStep;
+    })
+    .addCase(resetFilmsInListAmount, (state) => {
+      state.filmsPerStep = FilmSettings.FilmsPerStep;
     });
 });
 
