@@ -2,7 +2,7 @@ import cn from 'classnames';
 import { MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
-import { changeGenre } from '../../store/action';
+import { changeGenre, resetFilmsInListAmount } from '../../store/action';
 
 type GenreListProps = {
   currentGenre: string;
@@ -29,6 +29,7 @@ function GenresList({ currentGenre, genres }: GenreListProps): JSX.Element {
             onClick={(evt: MouseEvent) => {
               evt.preventDefault();
               dispatch(changeGenre(genre));
+              dispatch(resetFilmsInListAmount());
             }}
           >
             {genre}
