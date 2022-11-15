@@ -1,12 +1,15 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate} from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import FilmsList from '../../components/films-list/films-list';
 import UserBlock from '../../components/user-block/user-block';
 import { Film, Films } from '../../types/films';
 import { AppRoute } from '../../const';
 import GenresList from '../../components/genres-list/genres-list';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getFilmsSelectedByGenre, getGenres } from '../../util';
+import ShowMoreButton from '../../components/show-more-button/show-more-button';
+import { resetFilmsInListAmount, setFilmsInListAmount } from '../../store/action';
+import { useEffect } from 'react';
 
 type WelcomeScreenProps = {
   title: string;
@@ -17,6 +20,13 @@ type WelcomeScreenProps = {
 
 function WelcomeScreen({ title, genre, year, films }: WelcomeScreenProps): JSX.Element {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const location = useLocation();
+
+  useEffect(() => {
+    dispatch(resetFilmsInListAmount());
+  }, [location, dispatch]);
+
   const promoFilm = films.find((elem: Film) => elem.name === title);
 
   const handlePlayPromoFilmButtonClick = () => {
@@ -28,7 +38,11 @@ function WelcomeScreen({ title, genre, year, films }: WelcomeScreenProps): JSX.E
 
   const currentGenre = useAppSelector((state) => state.genre);
 
+  const renderedFilmsAmount = useAppSelector((state) => state.filmsPerStep);
+
   const selectedFilms = useAppSelector((state) => getFilmsSelectedByGenre(state.films, currentGenre));
+
+  const renderedFilms = useAppSelector((state) => getFilmsSelectedByGenre(state.films, currentGenre)).slice(0, renderedFilmsAmount);
 
   const genres = getGenres(films);
 
@@ -93,13 +107,19 @@ function WelcomeScreen({ title, genre, year, films }: WelcomeScreenProps): JSX.E
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenresList currentGenre={currentGenre} genres={genres}/>
+          <GenresList currentGenre={currentGenre} genres={genres} />
 
-          <FilmsList films={selectedFilms}/>
+          <FilmsList films={renderedFilms} />
 
           <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
+            {selectedFilms.length > renderedFilms.length &&
+              <ShowMoreButton
+                onClick={() => {
+                  dispatch(setFilmsInListAmount());
+                }}
+              />}
           </div>
+
         </section>
 
         <footer className="page-footer">
