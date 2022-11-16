@@ -8,25 +8,34 @@ import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import MyListScreen from '../../pages/my-list-screen/my-list-screen';
 import MovieScreen from '../../pages/movie-screen/movie-screen';
 import AuthScreen from '../../pages/auth-screen/auth-screen';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import PrivateRoute from '../private-route/private-route';
 import { Reviews } from '../../types/reviews';
-import { Films } from '../../types/films';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setFilms } from '../../store/action';
 
 type AppScreenProps = {
   title: string;
   genre: string;
   year: number;
-  films: Films;
   reviews: Reviews;
 }
 
-function App({ title, genre, year, films, reviews }: AppScreenProps): JSX.Element {
+function App({ title, genre, year, reviews }: AppScreenProps): JSX.Element {
+
+  const isFilmsDataLoading = useAppSelector((state) => state.isFilmsDataLoading);
 
   const dispatch = useAppDispatch();
 
+  const films = useAppSelector((state) => state.films);
+
   dispatch(setFilms(films));
+
+  if (isFilmsDataLoading) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   return (
     <HelmetProvider>

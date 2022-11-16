@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AppRoute, playerDelay } from '../../const';
+import { AppRoute, PLAYER_DELAY } from '../../const';
 import { Film } from '../../types/films';
 import VideoPlayer from '../video-player/video-player';
 
@@ -16,7 +16,7 @@ function FilmCard({ film }: FilmCardProps): JSX.Element {
   const handleFilmCardMouseEnter = () => {
     timeoutID = setTimeout(() => {
       setActiveCard(true);
-    }, playerDelay);
+    }, PLAYER_DELAY);
   };
 
 

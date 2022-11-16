@@ -12,3 +12,9 @@ export const setFilms = createAction('films/setFilms', (films: Films) => ({
 export const setFilmsInListAmount = createAction('films/setFilmsInListAmount');
 
 export const resetFilmsInListAmount = createAction('films/resetFilmsInListAmount');
+
+export const loadFilms = createAction<Films>('data/loadFilms');
+
+export const setFilmsDataLoadingStatus = createAction<boolean>('data/setFilmsDataLoadingStatus');
+
+export const setError = createAction<string | null>('app/setError');
