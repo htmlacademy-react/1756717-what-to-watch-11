@@ -1,12 +1,22 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { FilmSettings } from '../const';
-import { filmsMock } from '../mocks/films';
-import { changeGenre, resetFilmsInListAmount, setFilms, setFilmsInListAmount } from './action';
+import { Films } from '../types/films';
+import { changeGenre, loadFilms, resetFilmsInListAmount, setFilms, setFilmsInListAmount, setError, setFilmsDataLoadingStatus } from './action';
 
-const initialState = {
+type InitialState = {
+  genre: string;
+  films: Films;
+  filmsPerStep: number;
+  isFilmsDataLoading: boolean;
+  error: string | null;
+}
+
+const initialState: InitialState = {
   genre: FilmSettings.DefaultFilterGenre as string,
-  films: filmsMock,
+  films: [],
   filmsPerStep: FilmSettings.FilmsPerStep as number,
+  isFilmsDataLoading: false,
+  error: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -22,6 +32,15 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(resetFilmsInListAmount, (state) => {
       state.filmsPerStep = FilmSettings.FilmsPerStep;
+    })
+    .addCase(loadFilms, (state, action) => {
+      state.films = action.payload;
+    })
+    .addCase(setFilmsDataLoadingStatus, (state, action) => {
+      state.isFilmsDataLoading = action.payload;
+    })
+    .addCase(setError,(state, action) => {
+      state.error = action.payload;
     });
 });
 

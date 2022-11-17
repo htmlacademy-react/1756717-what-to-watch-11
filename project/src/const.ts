@@ -1,3 +1,7 @@
+export const TIMEOUT_SHOW_ERROR = 2000;
+
+export const PLAYER_DELAY = 1000;
+
 export enum AppRoute {
   Main = '/',
   SignIn = '/login',
@@ -5,6 +9,10 @@ export enum AppRoute {
   Film = '/films',
   AddReview = '/review',
   Player = '/player',
+}
+
+export enum APIRoute {
+  Films = '/films',
 }
 
 export enum AuthorizationStatus {
@@ -25,4 +33,3 @@ export enum FilmSettings {
   FilmsPerStep = 8,
 }
 
-export const playerDelay = 1000;
