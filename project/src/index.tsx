@@ -2,10 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import App from './components/app/app';
-import ErrorMessage from './components/error-message/error-message';
+import { ToastContainer } from 'react-toastify';
 import { reviewsMock } from './mock/reviews';
 import { store } from './store';
-import { fetchFilmAction } from './store/api-actions';
+import { checkAuthAction, fetchFilmAction } from './store/api-actions';
+import 'react-toastify/dist/ReactToastify.css';
 
 const PromoFilm = {
   Title: 'The Grand Budapest Hotel',
@@ -14,6 +15,7 @@ const PromoFilm = {
 } as const;
 
 store.dispatch(fetchFilmAction());
+store.dispatch(checkAuthAction());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -22,7 +24,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ErrorMessage />
+      <ToastContainer />
       <App
         title={PromoFilm.Title}
         genre={PromoFilm.Genre}
