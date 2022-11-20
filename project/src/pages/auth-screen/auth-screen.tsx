@@ -10,7 +10,7 @@ import { AuthData } from '../../types/auth-data';
 function AuthScreen(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-  const reg = '^[A-Za-z0-9]{2,}$';
+  const reg = '[A-Za-z]+[0-9]|[0-9]+[A-Za-z]';
   const authStatus = useAppSelector((state) => state.authorizationStatus);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
