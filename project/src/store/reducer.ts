@@ -1,22 +1,22 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { FilmSettings } from '../const';
+import { AuthorizationStatus, FilmSettings } from '../const';
 import { Films } from '../types/films';
-import { changeGenre, loadFilms, resetFilmsInListAmount, setFilms, setFilmsInListAmount, setError, setFilmsDataLoadingStatus } from './action';
+import { changeGenre, loadFilms, resetFilmsInListAmount, setFilms, setFilmsInListAmount, setFilmsDataLoadingStatus, requireAuthorization } from './action';
 
 type InitialState = {
   genre: string;
   films: Films;
   filmsPerStep: number;
+  authorizationStatus: AuthorizationStatus;
   isFilmsDataLoading: boolean;
-  error: string | null;
 }
 
 const initialState: InitialState = {
   genre: FilmSettings.DefaultFilterGenre as string,
   films: [],
   filmsPerStep: FilmSettings.FilmsPerStep as number,
+  authorizationStatus: AuthorizationStatus.Unknown,
   isFilmsDataLoading: false,
-  error: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -36,11 +36,11 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(loadFilms, (state, action) => {
       state.films = action.payload;
     })
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
     .addCase(setFilmsDataLoadingStatus, (state, action) => {
       state.isFilmsDataLoading = action.payload;
-    })
-    .addCase(setError,(state, action) => {
-      state.error = action.payload;
     });
 });
 
