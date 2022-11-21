@@ -10,7 +10,6 @@ import MovieScreen from '../../pages/movie-screen/movie-screen';
 import AuthScreen from '../../pages/auth-screen/auth-screen';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import PrivateRoute from '../private-route/private-route';
-import { Reviews } from '../../types/reviews';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setFilms } from '../../store/action';
 import browserHistory from '../../browser-history';
@@ -21,10 +20,9 @@ type AppScreenProps = {
   title: string;
   genre: string;
   year: number;
-  reviews: Reviews;
 }
 
-function App({ title, genre, year, reviews }: AppScreenProps): JSX.Element {
+function App({ title, genre, year }: AppScreenProps): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const isFilmsDataLoading = useAppSelector((state) => state.isFilmsDataLoading);
 
@@ -53,10 +51,10 @@ function App({ title, genre, year, reviews }: AppScreenProps): JSX.Element {
             </PrivateRoute>
           }
           />
-          <Route path={`${AppRoute.Film}/:id`} element={<MovieScreen films={films} reviews={reviews}/>} />
+          <Route path={`${AppRoute.Film}/:id`} element={<MovieScreen />} />
           <Route path={`${AppRoute.Film}/:id/${AppRoute.AddReview}`} element={
             <PrivateRoute authorizationStatus={authorizationStatus}>
-              <ReviewScreen films={films}/>
+              <ReviewScreen/>
             </PrivateRoute>
           }
           />
