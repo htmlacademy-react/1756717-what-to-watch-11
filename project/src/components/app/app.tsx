@@ -10,11 +10,9 @@ import MovieScreen from '../../pages/movie-screen/movie-screen';
 import AuthScreen from '../../pages/auth-screen/auth-screen';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import PrivateRoute from '../private-route/private-route';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setFilms } from '../../store/action';
+import { useAppSelector } from '../../hooks';
 import browserHistory from '../../browser-history';
 import HistoryRouter from '../history-route/history-route';
-import { useEffect } from 'react';
 
 type AppScreenProps = {
   title: string;
@@ -26,13 +24,6 @@ function App({ title, genre, year }: AppScreenProps): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const isFilmsDataLoading = useAppSelector((state) => state.isFilmsDataLoading);
 
-  const dispatch = useAppDispatch();
-  const films = useAppSelector((state) => state.films);
-
-  useEffect(() => {
-    dispatch(setFilms(films));
-  }, [films, dispatch]);
-
   if (authorizationStatus === AuthorizationStatus.Unknown || isFilmsDataLoading) {
     return (
       <LoadingScreen />
@@ -43,11 +34,11 @@ function App({ title, genre, year }: AppScreenProps): JSX.Element {
     <HelmetProvider>
       <HistoryRouter history={browserHistory}>
         <Routes>
-          <Route path={AppRoute.Main} element={<WelcomeScreen title={title} genre={genre} year={year} films={films}/>} />
+          <Route path={AppRoute.Main} element={<WelcomeScreen title={title} genre={genre} year={year} />} />
           <Route path={AppRoute.SignIn} element={<AuthScreen />} />
           <Route path={AppRoute.MyList} element={
             <PrivateRoute authorizationStatus={authorizationStatus}>
-              <MyListScreen films={films}/>
+              <MyListScreen />
             </PrivateRoute>
           }
           />
@@ -58,7 +49,7 @@ function App({ title, genre, year }: AppScreenProps): JSX.Element {
             </PrivateRoute>
           }
           />
-          <Route path={`${AppRoute.Player}/:id`} element={<PlayerScreen films={films}/>} />
+          <Route path={`${AppRoute.Player}/:id`} element={<PlayerScreen />} />
           <Route path='*' element={<NotFoundScreen />} />
         </Routes>
       </HistoryRouter>

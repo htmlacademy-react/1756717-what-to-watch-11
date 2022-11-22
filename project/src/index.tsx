@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import App from './components/app/app';
 import { ToastContainer } from 'react-toastify';
 import { store } from './store';
-import { checkAuthAction, fetchFilmsAction } from './store/api-actions';
+import { checkAuthAction } from './store/api-actions';
 import 'react-toastify/dist/ReactToastify.css';
 
 const PromoFilm = {
@@ -13,7 +13,6 @@ const PromoFilm = {
   Year: 2014,
 } as const;
 
-store.dispatch(fetchFilmsAction());
 store.dispatch(checkAuthAction());
 
 const root = ReactDOM.createRoot(

@@ -2,7 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import { AuthorizationStatus, FilmSettings } from '../const';
 import { Film, Films } from '../types/films';
 import { Reviews } from '../types/reviews';
-import { changeGenre, loadFilms, resetFilmsInListAmount, setFilms, setFilmsInListAmount, setFilmsDataLoadingStatus, requireAuthorization, loadFilm, loadFilmReviews, loadSimilarFilms, setFilmDataLoadingStatus, setReviewFormDisabled } from './action';
+import { changeGenre, loadFilms, resetFilmsInListAmount, setFilmsInListAmount, setFilmsDataLoadingStatus, requireAuthorization, loadFilm, loadFilmReviews, loadSimilarFilms, setFilmDataLoadingStatus, setReviewFormDisabled } from './action';
 
 type InitialState = {
   genre: string;
@@ -33,9 +33,6 @@ const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(changeGenre, (state, action) => {
       state.genre = action.payload;
-    })
-    .addCase(setFilms, (state, action) => {
-      state.films = action.payload;
     })
     .addCase(setFilmsInListAmount, (state) => {
       state.filmsPerStep = state.filmsPerStep + FilmSettings.FilmsPerStep;
