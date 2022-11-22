@@ -22,18 +22,13 @@ function MovieScreen(): JSX.Element {
   }, [params.id]);
 
   useEffect(() => {
-    let isFilmDataMounted = true;
 
-    if (params.id && isFilmDataMounted) {
-      console.log(params.id);
+    if (params.id) {
       dispatch(fetchFilmAction(params.id));
       dispatch(fetchFilmReviewsAction(params.id));
       dispatch(fetchSimilarFilmsAction(params.id));
     }
 
-    return () => {
-      isFilmDataMounted = false;
-    };
   }, [params.id, dispatch]);
 
   const film = useAppSelector((state) => state.film);

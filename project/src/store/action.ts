@@ -30,3 +30,5 @@ export const setFilmDataLoadingStatus = createAction<boolean>('data/setFilmDataL
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
 
 export const redirectToRoute = createAction<AppRoute>('app/redirectToRoute');
+
+export const setReviewFormDisabled = createAction<boolean>('form/setReviewFormDisabled');

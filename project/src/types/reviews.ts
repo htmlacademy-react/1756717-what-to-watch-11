@@ -14,6 +14,11 @@ export type Review = {
 export type Reviews = Review[];
 
 export type ReviewFormData = {
+  rating: number | null;
+  comment: string;
+}
+
+export type NewReview = {
   rating: number;
   comment: string;
 }

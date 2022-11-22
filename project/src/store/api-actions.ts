@@ -2,12 +2,12 @@ import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state.js';
 import { Film, Films } from '../types/films.js';
-import { loadFilms, redirectToRoute, requireAuthorization, loadFilm, setFilmDataLoadingStatus, loadFilmReviews, setFilmsDataLoadingStatus, loadSimilarFilms } from './action';
+import { loadFilms, redirectToRoute, requireAuthorization, loadFilm, setFilmDataLoadingStatus, loadFilmReviews, setFilmsDataLoadingStatus, loadSimilarFilms, setReviewFormDisabled } from './action';
 import { APIRoute, AppRoute, AuthorizationStatus } from '../const';
 import { AuthData } from '../types/auth-data.js';
 import { UserData } from '../types/user-data.js';
 import { dropToken, saveToken } from '../services/token';
-import { Review, Reviews } from '../types/reviews.js';
+import { NewReview, Reviews } from '../types/reviews.js';
 
 export const fetchFilmsAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -32,7 +32,6 @@ export const fetchFilmAction = createAsyncThunk<void, string, {
   async (id, { dispatch, extra: api }) => {
     dispatch(setFilmDataLoadingStatus(true));
     const { data } = await api.get<Film>(`${APIRoute.Films}/${id}`);
-    console.log(data);
     dispatch(setFilmDataLoadingStatus(false));
     dispatch(loadFilm(data));
   },
@@ -50,14 +49,19 @@ export const fetchFilmReviewsAction = createAsyncThunk<void, string, {
   },
 );
 
-export const commentAction = createAsyncThunk<void, [number, Review], {
+export const commentAction = createAsyncThunk<void, [number, NewReview], {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'data/comment',
-  async ([filmId, {comment, rating}], { extra: api}) => {
-    await api.post<Review>(`${APIRoute.Reviews}/${filmId}`, {comment, rating});
+  async ([id, {comment, rating}], { dispatch, extra: api}) => {
+    try {
+      await api.post<Reviews>(`${APIRoute.Reviews}/${id}`, {comment, rating});
+      dispatch(setReviewFormDisabled(false));
+    } catch {
+      dispatch(setReviewFormDisabled(false));
+    }
   },
 );
 
