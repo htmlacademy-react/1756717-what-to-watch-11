@@ -2,13 +2,11 @@ import { Helmet } from 'react-helmet-async';
 import FilmsList from '../../components/films-list/films-list';
 import Logo from '../../components/logo/logo';
 import UserBlock from '../../components/user-block/user-block';
-import { Films } from '../../types/films';
+import { useAppSelector } from '../../hooks';
 
-type MyListScreenProps = {
-  films: Films;
-}
+function MyListScreen(): JSX.Element {
+  const films = useAppSelector((state) => state.films);
 
-function MyListScreen({films}: MyListScreenProps): JSX.Element {
   return (
     <div className="user-page">
       <Helmet>

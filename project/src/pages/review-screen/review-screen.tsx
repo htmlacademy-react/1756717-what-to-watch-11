@@ -1,19 +1,16 @@
 import { Helmet } from 'react-helmet-async';
-import { useParams, Link } from 'react-router-dom';
-import { Film, Films } from '../../types/films';
+import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import Logo from '../../components/logo/logo';
 import UserBlock from '../../components/user-block/user-block';
 import ReviewForm from '../../components/review-form/review-form';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import { useAppSelector } from '../../hooks';
 
-type ReviewScreenProps = {
-  films: Films;
-}
+function ReviewScreen(): JSX.Element {
 
-function ReviewScreen({films}: ReviewScreenProps): JSX.Element {
-  const params = useParams();
-  const film = films.find((elem: Film) => elem.id.toString() === params.id);
+  const film = useAppSelector((state) => state.film);
+
   if (film === undefined) {
     return <NotFoundScreen />;
   }

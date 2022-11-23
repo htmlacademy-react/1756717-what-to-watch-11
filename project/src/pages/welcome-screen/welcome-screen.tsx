@@ -1,8 +1,8 @@
-import { useLocation, useNavigate} from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import FilmsList from '../../components/films-list/films-list';
 import UserBlock from '../../components/user-block/user-block';
-import { Film, Films } from '../../types/films';
+import { Film } from '../../types/films';
 import { AppRoute } from '../../const';
 import GenresList from '../../components/genres-list/genres-list';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -10,18 +10,26 @@ import { getFilmsSelectedByGenre, getGenres } from '../../util';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import { resetFilmsInListAmount, setFilmsInListAmount } from '../../store/action';
 import { useEffect } from 'react';
+import { fetchFilmsAction } from '../../store/api-actions';
 
 type WelcomeScreenProps = {
   title: string;
   genre: string;
   year: number;
-  films: Films;
 }
 
-function WelcomeScreen({ title, genre, year, films }: WelcomeScreenProps): JSX.Element {
+function WelcomeScreen({ title, genre, year }: WelcomeScreenProps): JSX.Element {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const location = useLocation();
+
+  const films = useAppSelector((state) => state.films);
+
+  useEffect(() => {
+    if (films.length <= 0) {
+      dispatch(fetchFilmsAction());
+    }
+  }, [films, dispatch]);
 
   useEffect(() => {
     dispatch(resetFilmsInListAmount());

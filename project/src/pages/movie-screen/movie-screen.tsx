@@ -2,33 +2,50 @@ import { Helmet } from 'react-helmet-async';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import UserBlock from '../../components/user-block/user-block';
-import { Film, Films } from '../../types/films';
-import { Reviews } from '../../types/reviews';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import { AppRoute, FilmSettings } from '../../const';
+import { AppRoute, AuthorizationStatus, FilmSettings } from '../../const';
 import FilmsList from '../../components/films-list/films-list';
 import FilmTabs from '../../components/film-tabs/film-tabs';
 import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchFilmAction, fetchFilmReviewsAction, fetchSimilarFilmsAction } from '../../store/api-actions';
+import LoadingScreen from '../loading-screen/loading-screen';
 
-type MovieScreenProps = {
-  films: Films;
-  reviews: Reviews;
-}
 
-function MovieScreen({films, reviews}: MovieScreenProps): JSX.Element {
+function MovieScreen(): JSX.Element {
   const params = useParams();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [params.id]);
 
-  const film = films.find((elem: Film) => elem.id.toString() === params.id);
+  useEffect(() => {
+
+    if (params.id) {
+      dispatch(fetchFilmAction(params.id));
+      dispatch(fetchFilmReviewsAction(params.id));
+      dispatch(fetchSimilarFilmsAction(params.id));
+    }
+
+  }, [params.id, dispatch]);
+
+  const film = useAppSelector((state) => state.film);
+  const reviews = useAppSelector((state) => state.filmReviews);
+  const similarFilms = useAppSelector((state) => state.similarFilms).slice(0, FilmSettings.MaxSimilarFilmsAmount);
+  const isFilmDataLoading = useAppSelector((state) => state.isFilmDataLoading);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+
   if (film === undefined) {
     return <NotFoundScreen />;
   }
 
-  const similarFilms = films.slice(0, FilmSettings.MaxSimilarFilmsAmount);
+  if (isFilmDataLoading) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   return (
     <>
@@ -73,7 +90,7 @@ function MovieScreen({films, reviews}: MovieScreenProps): JSX.Element {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <Link className="btn film-card__button" to={`${AppRoute.Film}/${film.id}/${AppRoute.AddReview}`}>Add review</Link>
+                {authorizationStatus === AuthorizationStatus.Auth && <Link className="btn film-card__button" to={`${AppRoute.Film}/${film.id}/${AppRoute.AddReview}`}>Add review</Link>}
               </div>
             </div>
           </div>
@@ -85,7 +102,7 @@ function MovieScreen({films, reviews}: MovieScreenProps): JSX.Element {
               <img src={film.posterImage} alt={`${film.name} poster`} width="218" height="327" />
             </div>
 
-            <FilmTabs film={film} reviews={reviews}/>
+            <FilmTabs film={film} reviews={reviews} />
           </div>
         </div>
       </section>
