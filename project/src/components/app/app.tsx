@@ -14,13 +14,7 @@ import { useAppSelector } from '../../hooks';
 import browserHistory from '../../browser-history';
 import HistoryRouter from '../history-route/history-route';
 
-type AppScreenProps = {
-  title: string;
-  genre: string;
-  year: number;
-}
-
-function App({ title, genre, year }: AppScreenProps): JSX.Element {
+function App(): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const isFilmsDataLoading = useAppSelector((state) => state.isFilmsDataLoading);
 
@@ -34,7 +28,7 @@ function App({ title, genre, year }: AppScreenProps): JSX.Element {
     <HelmetProvider>
       <HistoryRouter history={browserHistory}>
         <Routes>
-          <Route path={AppRoute.Main} element={<WelcomeScreen title={title} genre={genre} year={year} />} />
+          <Route path={AppRoute.Main} element={<WelcomeScreen />} />
           <Route path={AppRoute.SignIn} element={<AuthScreen />} />
           <Route path={AppRoute.MyList} element={
             <PrivateRoute authorizationStatus={authorizationStatus}>

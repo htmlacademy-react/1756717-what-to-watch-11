@@ -2,7 +2,7 @@ import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state.js';
 import { Film, Films } from '../types/films.js';
-import { loadFilms, redirectToRoute, requireAuthorization, loadFilm, setFilmDataLoadingStatus, loadFilmReviews, setFilmsDataLoadingStatus, loadSimilarFilms, setReviewFormDisabled } from './action';
+import { loadFilms, redirectToRoute, requireAuthorization, loadFilm, setFilmDataLoadingStatus, loadFilmReviews, setFilmsDataLoadingStatus, loadSimilarFilms, setReviewFormDisabled, loadPromoFilm, setPromoFilmDataLoadingStatus } from './action';
 import { APIRoute, AppRoute, AuthorizationStatus } from '../const';
 import { AuthData } from '../types/auth-data.js';
 import { UserData } from '../types/user-data.js';
@@ -46,6 +46,20 @@ export const fetchFilmReviewsAction = createAsyncThunk<void, string, {
   async (id, { dispatch, extra: api }) => {
     const { data } = await api.get<Reviews>(`${APIRoute.Reviews}/${id}`);
     dispatch(loadFilmReviews(data));
+  },
+);
+
+export const fetchPromoFilmAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchPromoFilm',
+  async (_arg, { dispatch, extra: api }) => {
+    dispatch(setPromoFilmDataLoadingStatus(true));
+    const { data } = await api.get<Film>(APIRoute.Promo);
+    dispatch(setPromoFilmDataLoadingStatus(false));
+    dispatch(loadPromoFilm(data));
   },
 );
 

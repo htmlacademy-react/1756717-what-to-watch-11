@@ -2,7 +2,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import FilmsList from '../../components/films-list/films-list';
 import UserBlock from '../../components/user-block/user-block';
-import { Film } from '../../types/films';
 import { AppRoute } from '../../const';
 import GenresList from '../../components/genres-list/genres-list';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -10,15 +9,9 @@ import { getFilmsSelectedByGenre, getGenres } from '../../util';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import { resetFilmsInListAmount, setFilmsInListAmount } from '../../store/action';
 import { useEffect } from 'react';
-import { fetchFilmsAction } from '../../store/api-actions';
+import { fetchFilmsAction, fetchPromoFilmAction } from '../../store/api-actions';
 
-type WelcomeScreenProps = {
-  title: string;
-  genre: string;
-  year: number;
-}
-
-function WelcomeScreen({ title, genre, year }: WelcomeScreenProps): JSX.Element {
+function WelcomeScreen(): JSX.Element {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const location = useLocation();
@@ -32,10 +25,14 @@ function WelcomeScreen({ title, genre, year }: WelcomeScreenProps): JSX.Element 
   }, [films, dispatch]);
 
   useEffect(() => {
+    dispatch(fetchPromoFilmAction());
+  }, [dispatch]);
+
+  useEffect(() => {
     dispatch(resetFilmsInListAmount());
   }, [location, dispatch]);
 
-  const promoFilm = films.find((elem: Film) => elem.name === title);
+  const promoFilm = useAppSelector((state) => state.promoFilm);
 
   const handlePlayPromoFilmButtonClick = () => {
     if (promoFilm === undefined) {
@@ -81,14 +78,14 @@ function WelcomeScreen({ title, genre, year }: WelcomeScreenProps): JSX.Element 
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={promoFilm.posterImage} alt={`${promoFilm.name} poster`} width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{title}</h2>
+              <h2 className="film-card__title">{promoFilm.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{genre}</span>
-                <span className="film-card__year">{year}</span>
+                <span className="film-card__genre">{promoFilm.genre}</span>
+                <span className="film-card__year">{promoFilm.released}</span>
               </p>
 
               <div className="film-card__buttons">
