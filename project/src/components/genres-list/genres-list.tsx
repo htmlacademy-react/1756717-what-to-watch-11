@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { MouseEvent } from 'react';
+import { MouseEvent, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getFilms } from '../../store/films-data/selectors';
@@ -12,7 +12,7 @@ function GenresList(): JSX.Element {
   const dispatch = useAppDispatch();
   const films = useAppSelector(getFilms);
   const currentGenre = useAppSelector(getGenre);
-  const genres = getGenres(films);
+  const genres = useMemo(() => getGenres(films), [films]);
 
   return (
     <ul className="catalog__genres-list">

@@ -6,6 +6,7 @@ type FilmTabOverviewProps = {
 }
 
 function FilmTabOverview({film}: FilmTabOverviewProps): JSX.Element {
+
   return (
     <>
       <div className="film-rating">

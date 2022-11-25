@@ -12,6 +12,7 @@ import { fetchFilmsAction, fetchPromoFilmAction } from '../../store/api-actions'
 import { getFilms, getPromoFilm } from '../../store/films-data/selectors';
 import { getFilmsAmount, getGenre } from '../../store/films-process/selectors';
 import { resetFilmsInListAmount, setFilmsInListAmount } from '../../store/films-process/films-process';
+import Logo from '../../components/logo/logo';
 
 function WelcomeScreen(): JSX.Element {
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ function WelcomeScreen(): JSX.Element {
   const promoFilm = useAppSelector(getPromoFilm);
 
   const handlePlayPromoFilmButtonClick = () => {
-    if (promoFilm === undefined) {
+    if (!promoFilm) {
       return navigate('*');
     }
     return navigate(`${AppRoute.Player}/${promoFilm.id}`);
@@ -65,11 +66,7 @@ function WelcomeScreen(): JSX.Element {
 
         <header className="page-header film-card__head">
           <div className="logo">
-            <a className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            <Logo />
           </div>
 
           <UserBlock />
@@ -127,11 +124,7 @@ function WelcomeScreen(): JSX.Element {
 
         <footer className="page-footer">
           <div className="logo">
-            <a className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            <Logo light/>
           </div>
 
           <div className="copyright">

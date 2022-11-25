@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -40,4 +41,4 @@ function UserBlock(): JSX.Element {
   }
 }
 
-export default UserBlock;
+export default memo(UserBlock);

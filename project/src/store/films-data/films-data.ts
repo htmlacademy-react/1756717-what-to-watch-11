@@ -7,8 +7,8 @@ import { commentAction, fetchFilmAction, fetchFilmReviewsAction, fetchFilmsActio
 const initialState: FilmsData = {
   films: [],
   filmReviews: [],
-  promoFilm: {} as Film,
   similarFilms: [],
+  promoFilm: {} as Film,
   isFilmsDataLoading: false,
   isFilmDataLoading: false,
   isFilmReviewsDataLoading: false,
