@@ -10,6 +10,8 @@ import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchFilmAction, fetchFilmReviewsAction, fetchSimilarFilmsAction } from '../../store/api-actions';
 import LoadingScreen from '../loading-screen/loading-screen';
+import { getFilm, getFilmDataLoadingStatus, getFilmReviews, getFilmReviewsDataLoadingStatus, getSimilarFilms, getSimilarFilmsDataLoadingStatus } from '../../store/films-data/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 
 function MovieScreen(): JSX.Element {
@@ -31,17 +33,19 @@ function MovieScreen(): JSX.Element {
 
   }, [params.id, dispatch]);
 
-  const film = useAppSelector((state) => state.film);
-  const reviews = useAppSelector((state) => state.filmReviews);
-  const similarFilms = useAppSelector((state) => state.similarFilms).slice(0, FilmSettings.MaxSimilarFilmsAmount);
-  const isFilmDataLoading = useAppSelector((state) => state.isFilmDataLoading);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const film = useAppSelector(getFilm);
+  const reviews = useAppSelector(getFilmReviews);
+  const similarFilms = useAppSelector(getSimilarFilms).slice(0, FilmSettings.MaxSimilarFilmsAmount);
+  const isFilmDataLoading = useAppSelector(getFilmDataLoadingStatus);
+  const isFilmReviewsLoading = useAppSelector(getFilmReviewsDataLoadingStatus);
+  const isSimilarFilmsLoading = useAppSelector(getSimilarFilmsDataLoadingStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   if (film === undefined) {
     return <NotFoundScreen />;
   }
 
-  if (isFilmDataLoading) {
+  if (isFilmDataLoading || isFilmReviewsLoading || isSimilarFilmsLoading) {
     return (
       <LoadingScreen />
     );

@@ -1,17 +1,15 @@
 import { Helmet } from 'react-helmet-async';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Film } from '../../types/films';
+import { useNavigate } from 'react-router-dom';
 import { getFormatPlayerTime } from '../../util';
-import { AppRoute } from '../../const';
+import { APIRoute } from '../../const';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { useAppSelector } from '../../hooks';
+import { getFilm } from '../../store/films-data/selectors';
 
 function PlayerScreen(): JSX.Element {
-  const params = useParams();
   const navigate = useNavigate();
-  const films = useAppSelector((state) => state.films);
 
-  const film = films.find((elem: Film) => elem.id.toString() === params.id);
+  const film = useAppSelector(getFilm);
   if (film === undefined) {
     return <NotFoundScreen />;
   }
@@ -22,7 +20,7 @@ function PlayerScreen(): JSX.Element {
       </Helmet>
       <video src="#" className="player__video" poster={film.backgroundImage}></video>
 
-      <button type="button" className="player__exit" onClick={() => navigate(AppRoute.Main)}>Exit</button>
+      <button type="button" className="player__exit" onClick={() => navigate(`${APIRoute.Films}/${film.id.toString()}`)}>Exit</button>
 
       <div className="player__controls">
         <div className="player__controls-row">

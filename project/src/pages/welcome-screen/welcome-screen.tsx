@@ -5,18 +5,20 @@ import UserBlock from '../../components/user-block/user-block';
 import { AppRoute } from '../../const';
 import GenresList from '../../components/genres-list/genres-list';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getFilmsSelectedByGenre, getGenres } from '../../util';
+import { getFilmsSelectedByGenre } from '../../util';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
-import { resetFilmsInListAmount, setFilmsInListAmount } from '../../store/action';
 import { useEffect } from 'react';
 import { fetchFilmsAction, fetchPromoFilmAction } from '../../store/api-actions';
+import { getFilms, getPromoFilm } from '../../store/films-data/selectors';
+import { getFilmsAmount, getGenre } from '../../store/films-process/selectors';
+import { resetFilmsInListAmount, setFilmsInListAmount } from '../../store/films-process/films-process';
 
 function WelcomeScreen(): JSX.Element {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const location = useLocation();
 
-  const films = useAppSelector((state) => state.films);
+  const films = useAppSelector(getFilms);
 
   useEffect(() => {
     if (films.length <= 0) {
@@ -32,7 +34,7 @@ function WelcomeScreen(): JSX.Element {
     dispatch(resetFilmsInListAmount());
   }, [location, dispatch]);
 
-  const promoFilm = useAppSelector((state) => state.promoFilm);
+  const promoFilm = useAppSelector(getPromoFilm);
 
   const handlePlayPromoFilmButtonClick = () => {
     if (promoFilm === undefined) {
@@ -41,15 +43,13 @@ function WelcomeScreen(): JSX.Element {
     return navigate(`${AppRoute.Player}/${promoFilm.id}`);
   };
 
-  const currentGenre = useAppSelector((state) => state.genre);
+  const currentGenre = useAppSelector(getGenre);
 
-  const renderedFilmsAmount = useAppSelector((state) => state.filmsPerStep);
+  const renderedFilmsAmount = useAppSelector(getFilmsAmount);
 
-  const selectedFilms = useAppSelector((state) => getFilmsSelectedByGenre(state.films, currentGenre));
+  const selectedFilms = getFilmsSelectedByGenre(films, currentGenre);
 
-  const renderedFilms = useAppSelector((state) => getFilmsSelectedByGenre(state.films, currentGenre)).slice(0, renderedFilmsAmount);
-
-  const genres = getGenres(films);
+  const renderedFilms = getFilmsSelectedByGenre(films, currentGenre).slice(0, renderedFilmsAmount);
 
   return (
     <>
@@ -112,16 +112,14 @@ function WelcomeScreen(): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenresList currentGenre={currentGenre} genres={genres} />
+          <GenresList />
 
           <FilmsList films={renderedFilms} />
 
           <div className="catalog__more">
             {selectedFilms.length > renderedFilms.length &&
               <ShowMoreButton
-                onClick={() => {
-                  dispatch(setFilmsInListAmount());
-                }}
+                onClick={() => dispatch(setFilmsInListAmount())}
               />}
           </div>
 

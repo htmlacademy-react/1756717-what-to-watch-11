@@ -35,3 +35,9 @@ export enum FilmSettings {
   FilmsPerStep = 8,
 }
 
+export enum NameSpace {
+  Data = 'DATA',
+  User = 'USER',
+  Films = 'FILMS',
+}
+

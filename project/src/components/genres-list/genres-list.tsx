@@ -1,17 +1,18 @@
 import cn from 'classnames';
 import { MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { useAppDispatch } from '../../hooks';
-import { changeGenre, resetFilmsInListAmount } from '../../store/action';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getFilms } from '../../store/films-data/selectors';
+import { changeGenre, resetFilmsInListAmount } from '../../store/films-process/films-process';
+import { getGenre } from '../../store/films-process/selectors';
+import { getGenres } from '../../util';
 
-type GenreListProps = {
-  currentGenre: string;
-  genres: string[];
-}
-
-function GenresList({ currentGenre, genres }: GenreListProps): JSX.Element {
+function GenresList(): JSX.Element {
 
   const dispatch = useAppDispatch();
+  const films = useAppSelector(getFilms);
+  const currentGenre = useAppSelector(getGenre);
+  const genres = getGenres(films);
 
   return (
     <ul className="catalog__genres-list">
