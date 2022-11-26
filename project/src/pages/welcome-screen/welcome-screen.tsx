@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import FilmsList from '../../components/films-list/films-list';
 import UserBlock from '../../components/user-block/user-block';
@@ -12,11 +12,12 @@ import { getFilms, getPromoFilm } from '../../store/films-data/selectors';
 import { getFilmsAmount, getGenre } from '../../store/films-process/selectors';
 import { resetFilmsInListAmount, setFilmsInListAmount } from '../../store/films-process/films-process';
 import Logo from '../../components/logo/logo';
-import PlayerButton from '../../components/player-button/player-button';
+import { AppRoute } from '../../const';
 
 function WelcomeScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const films = useAppSelector(getFilms);
 
@@ -78,7 +79,12 @@ function WelcomeScreen(): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-                <PlayerButton film={promoFilm}/>
+                <button className="btn btn--play film-card__button" onClick={() => navigate(`${AppRoute.Player}/${promoFilm.id}`)} type="button">
+                  <svg viewBox="0 0 19 19" width="19" height="19">
+                    <use xlinkHref="#play-s"></use>
+                  </svg>
+                  <span>Play</span>
+                </button>
                 <button className="btn btn--list film-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
@@ -111,7 +117,7 @@ function WelcomeScreen(): JSX.Element {
 
         <footer className="page-footer">
           <div className="logo">
-            <Logo light/>
+            <Logo light />
           </div>
 
           <div className="copyright">

@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import UserBlock from '../../components/user-block/user-block';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
@@ -12,12 +12,11 @@ import { fetchFilmAction, fetchFilmReviewsAction, fetchSimilarFilmsAction } from
 import LoadingScreen from '../loading-screen/loading-screen';
 import { getFilm, getFilmDataLoadingStatus, getFilmReviews, getFilmReviewsDataLoadingStatus, getSimilarFilms, getSimilarFilmsDataLoadingStatus } from '../../store/films-data/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
-import PlayerButton from '../../components/player-button/player-button';
-
 
 function MovieScreen(): JSX.Element {
   const params = useParams();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -81,7 +80,12 @@ function MovieScreen(): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-                <PlayerButton film={film} />
+                <button className="btn btn--play film-card__button" onClick={() => navigate(`${AppRoute.Player}/${film.id}`)} type="button">
+                  <svg viewBox="0 0 19 19" width="19" height="19">
+                    <use xlinkHref="#play-s"></use>
+                  </svg>
+                  <span>Play</span>
+                </button>
                 <button className="btn btn--list film-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
