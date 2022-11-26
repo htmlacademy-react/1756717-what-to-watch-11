@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { MouseEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { TabValue } from '../../const';
 import { Reviews } from '../../types/reviews';
@@ -26,18 +26,22 @@ function FilmTabs({film, reviews}: FilmTabsProps): JSX.Element {
     }
   };
 
+  const handleLinkClick = (evt: MouseEvent) => {
+    evt.preventDefault();
+  };
+
   return (
     <div className="film-card__desc">
       <nav className="film-nav film-card__nav">
         <ul className="film-nav__list">
           <li className={`film-nav__item ${activeTab === TabValue.Overview ? 'film-nav__item--active' : ''}`} onClick={() => setActiveTab(TabValue.Overview)}>
-            <Link to='#' className="film-nav__link">Overview</Link>
+            <Link to='#' className="film-nav__link" onClick={handleLinkClick}>Overview</Link>
           </li>
           <li className={`film-nav__item ${activeTab === TabValue.Details ? 'film-nav__item--active' : ''}`} onClick={() => setActiveTab(TabValue.Details)}>
-            <Link to='#' className="film-nav__link">Details</Link>
+            <Link to='#' className="film-nav__link" onClick={handleLinkClick}>Details</Link>
           </li>
           <li className={`film-nav__item ${activeTab === TabValue.Reviews ? 'film-nav__item--active' : ''}`} onClick={() => setActiveTab(TabValue.Reviews)}>
-            <Link to='#' className="film-nav__link">Reviews</Link>
+            <Link to='#' className="film-nav__link" onClick={handleLinkClick}>Reviews</Link>
           </li>
         </ul>
       </nav>

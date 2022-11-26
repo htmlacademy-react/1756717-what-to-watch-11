@@ -38,7 +38,7 @@ function ReviewScreen(): JSX.Element {
                 <Link to={`${AppRoute.Film}/${film.id}`} className="breadcrumbs__link">{film.name}</Link>
               </li>
               <li className="breadcrumbs__item">
-                <a className="breadcrumbs__link">Add review</a>
+                <span className="breadcrumbs__link">Add review</span>
               </li>
             </ul>
           </nav>
