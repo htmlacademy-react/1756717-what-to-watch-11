@@ -1,8 +1,7 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import FilmsList from '../../components/films-list/films-list';
 import UserBlock from '../../components/user-block/user-block';
-import { AppRoute } from '../../const';
 import GenresList from '../../components/genres-list/genres-list';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getFilmsSelectedByGenre } from '../../util';
@@ -13,9 +12,9 @@ import { getFilms, getPromoFilm } from '../../store/films-data/selectors';
 import { getFilmsAmount, getGenre } from '../../store/films-process/selectors';
 import { resetFilmsInListAmount, setFilmsInListAmount } from '../../store/films-process/films-process';
 import Logo from '../../components/logo/logo';
+import PlayerButton from '../../components/player-button/player-button';
 
 function WelcomeScreen(): JSX.Element {
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const location = useLocation();
 
@@ -36,13 +35,6 @@ function WelcomeScreen(): JSX.Element {
   }, [location, dispatch]);
 
   const promoFilm = useAppSelector(getPromoFilm);
-
-  const handlePlayPromoFilmButtonClick = () => {
-    if (!promoFilm) {
-      return navigate('*');
-    }
-    return navigate(`${AppRoute.Player}/${promoFilm.id}`);
-  };
 
   const currentGenre = useAppSelector(getGenre);
 
@@ -75,7 +67,7 @@ function WelcomeScreen(): JSX.Element {
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src={promoFilm.posterImage} alt={`${promoFilm.name} poster`} width="218" height="327" />
+              <img src={promoFilm.posterImage} alt={promoFilm.name} width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
@@ -86,12 +78,7 @@ function WelcomeScreen(): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" onClick={handlePlayPromoFilmButtonClick} type="button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
-                </button>
+                <PlayerButton film={promoFilm}/>
                 <button className="btn btn--list film-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>

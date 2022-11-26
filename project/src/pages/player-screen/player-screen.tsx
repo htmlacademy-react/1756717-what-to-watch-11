@@ -4,13 +4,19 @@ import { getFormatPlayerTime } from '../../util';
 import { APIRoute } from '../../const';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { useAppSelector } from '../../hooks';
-import { getFilm } from '../../store/films-data/selectors';
+import { getFilm, getPromoFilm } from '../../store/films-data/selectors';
 
 function PlayerScreen(): JSX.Element {
   const navigate = useNavigate();
 
-  const film = useAppSelector(getFilm);
-  if (film === undefined) {
+  let film = useAppSelector(getFilm);
+  const promoFilm = useAppSelector(getPromoFilm);
+  let route = film?.id.toString() as string;
+
+  if (!film && promoFilm) {
+    film = promoFilm;
+    route = promoFilm.id.toString();
+  } else if (!film || !promoFilm) {
     return <NotFoundScreen />;
   }
   return (
@@ -20,7 +26,7 @@ function PlayerScreen(): JSX.Element {
       </Helmet>
       <video src="#" className="player__video" poster={film.backgroundImage}></video>
 
-      <button type="button" className="player__exit" onClick={() => navigate(`${APIRoute.Films}/${film.id.toString()}`)}>Exit</button>
+      <button type="button" className="player__exit" onClick={() => navigate(`${APIRoute.Films}/${route}`)}>Exit</button>
 
       <div className="player__controls">
         <div className="player__controls-row">
