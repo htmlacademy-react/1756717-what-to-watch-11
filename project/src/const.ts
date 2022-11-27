@@ -14,6 +14,7 @@ export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
   Reviews = '/comments',
+  Promo = '/promo',
 }
 
 export enum AuthorizationStatus {
@@ -32,5 +33,11 @@ export enum FilmSettings {
   MaxSimilarFilmsAmount = 4,
   DefaultFilterGenre = 'All genre',
   FilmsPerStep = 8,
+}
+
+export enum NameSpace {
+  Data = 'DATA',
+  User = 'USER',
+  Films = 'FILMS',
 }
 

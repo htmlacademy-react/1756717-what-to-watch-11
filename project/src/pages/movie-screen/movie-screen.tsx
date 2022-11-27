@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import UserBlock from '../../components/user-block/user-block';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
@@ -10,12 +10,13 @@ import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchFilmAction, fetchFilmReviewsAction, fetchSimilarFilmsAction } from '../../store/api-actions';
 import LoadingScreen from '../loading-screen/loading-screen';
-
+import { getFilm, getFilmDataLoadingStatus, getFilmReviews, getFilmReviewsDataLoadingStatus, getSimilarFilms, getSimilarFilmsDataLoadingStatus } from '../../store/films-data/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 function MovieScreen(): JSX.Element {
   const params = useParams();
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -31,17 +32,19 @@ function MovieScreen(): JSX.Element {
 
   }, [params.id, dispatch]);
 
-  const film = useAppSelector((state) => state.film);
-  const reviews = useAppSelector((state) => state.filmReviews);
-  const similarFilms = useAppSelector((state) => state.similarFilms).slice(0, FilmSettings.MaxSimilarFilmsAmount);
-  const isFilmDataLoading = useAppSelector((state) => state.isFilmDataLoading);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const film = useAppSelector(getFilm);
+  const reviews = useAppSelector(getFilmReviews);
+  const similarFilms = useAppSelector(getSimilarFilms).slice(0, FilmSettings.MaxSimilarFilmsAmount);
+  const isFilmDataLoading = useAppSelector(getFilmDataLoadingStatus);
+  const isFilmReviewsLoading = useAppSelector(getFilmReviewsDataLoadingStatus);
+  const isSimilarFilmsLoading = useAppSelector(getSimilarFilmsDataLoadingStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   if (film === undefined) {
     return <NotFoundScreen />;
   }
 
-  if (isFilmDataLoading) {
+  if (isFilmDataLoading || isFilmReviewsLoading || isSimilarFilmsLoading) {
     return (
       <LoadingScreen />
     );
@@ -77,7 +80,7 @@ function MovieScreen(): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button" onClick={() => navigate(`${AppRoute.Player}/${film.id}`)}>
+                <button className="btn btn--play film-card__button" onClick={() => navigate(`${AppRoute.Player}/${film.id}`)} type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>

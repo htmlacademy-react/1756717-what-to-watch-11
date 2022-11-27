@@ -1,20 +1,38 @@
 import { Helmet } from 'react-helmet-async';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Film } from '../../types/films';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getFormatPlayerTime } from '../../util';
-import { AppRoute } from '../../const';
+import { APIRoute } from '../../const';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getFilm, getFilmDataLoadingStatus } from '../../store/films-data/selectors';
+import { fetchFilmAction } from '../../store/api-actions';
+import { useEffect } from 'react';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 function PlayerScreen(): JSX.Element {
-  const params = useParams();
   const navigate = useNavigate();
-  const films = useAppSelector((state) => state.films);
+  const params = useParams();
+  const dispatch = useAppDispatch();
 
-  const film = films.find((elem: Film) => elem.id.toString() === params.id);
+  useEffect(() => {
+    if (params.id) {
+      dispatch(fetchFilmAction(params.id));
+    }
+  }, [dispatch, params.id]);
+
+  const film = useAppSelector(getFilm);
+  const isFilmDataLoading = useAppSelector(getFilmDataLoadingStatus);
+
   if (film === undefined) {
     return <NotFoundScreen />;
   }
+
+  if (isFilmDataLoading) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
   return (
     <div className="player">
       <Helmet>
@@ -22,7 +40,7 @@ function PlayerScreen(): JSX.Element {
       </Helmet>
       <video src="#" className="player__video" poster={film.backgroundImage}></video>
 
-      <button type="button" className="player__exit" onClick={() => navigate(AppRoute.Main)}>Exit</button>
+      <button type="button" className="player__exit" onClick={() => navigate(`${APIRoute.Films}/${film.id.toString()}`)}>Exit</button>
 
       <div className="player__controls">
         <div className="player__controls-row">
