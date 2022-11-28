@@ -2,17 +2,19 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { Film } from '../../types/films';
 import { FilmsData } from '../../types/state';
-import { commentAction, fetchFilmAction, fetchFilmReviewsAction, fetchFilmsAction, fetchPromoFilmAction, fetchSimilarFilmsAction } from '../api-actions';
+import { commentAction, fetchFavoriteFilmsAction, fetchFilmAction, fetchFilmReviewsAction, fetchFilmsAction, fetchPromoFilmAction, fetchSimilarFilmsAction } from '../api-actions';
 
 const initialState: FilmsData = {
   films: [],
   filmReviews: [],
   similarFilms: [],
   promoFilm: {} as Film,
+  favoriteFilms: [],
   isFilmsDataLoading: false,
   isFilmDataLoading: false,
   isFilmReviewsDataLoading: false,
   isSimilarFilmsDataLoading: false,
+  isFavoriteFilmsDataLoading: false,
   isReviewFormDisabled: false,
 };
 
@@ -56,6 +58,13 @@ export const filmsData = createSlice({
       .addCase(fetchSimilarFilmsAction.fulfilled, (state, action) => {
         state.similarFilms = action.payload;
         state.isSimilarFilmsDataLoading = false;
+      })
+      .addCase(fetchFavoriteFilmsAction.pending, (state) => {
+        state.isFavoriteFilmsDataLoading = true;
+      })
+      .addCase(fetchFavoriteFilmsAction.fulfilled, (state, action) => {
+        state.favoriteFilms = action.payload;
+        state.isFavoriteFilmsDataLoading = false;
       })
       .addCase(commentAction.pending, (state) => {
         state.isReviewFormDisabled = true;

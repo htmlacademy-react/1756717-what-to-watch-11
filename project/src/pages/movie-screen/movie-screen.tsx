@@ -12,6 +12,7 @@ import { fetchFilmAction, fetchFilmReviewsAction, fetchSimilarFilmsAction } from
 import LoadingScreen from '../loading-screen/loading-screen';
 import { getFilm, getFilmDataLoadingStatus, getFilmReviews, getFilmReviewsDataLoadingStatus, getSimilarFilms, getSimilarFilmsDataLoadingStatus } from '../../store/films-data/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import FavoriteButton from '../../components/favorite-button/favorite-button';
 
 function MovieScreen(): JSX.Element {
   const params = useParams();
@@ -86,13 +87,7 @@ function MovieScreen(): JSX.Element {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">9</span>
-                </button>
+                <FavoriteButton filmId={film.id}/>
                 {authorizationStatus === AuthorizationStatus.Auth && <Link className="btn film-card__button" to={`${AppRoute.Film}/${film.id}/${AppRoute.AddReview}`}>Add review</Link>}
               </div>
             </div>

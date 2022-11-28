@@ -17,12 +17,14 @@ export type FilmsData = {
   filmReviews: Reviews;
   promoFilm: Film;
   similarFilms: Films;
+  favoriteFilms: Films;
   isFilmsDataLoading: boolean;
   isFilmDataLoading: boolean;
   isFilmReviewsDataLoading: boolean;
   isSimilarFilmsDataLoading: boolean;
+  isFavoriteFilmsDataLoading: boolean;
   isReviewFormDisabled: boolean;
-};
+}
 
 export type FilmsProcess = {
   genre: string;

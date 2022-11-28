@@ -15,6 +15,7 @@ export enum APIRoute {
   Logout = '/logout',
   Reviews = '/comments',
   Promo = '/promo',
+  Favorite = '/favorite',
 }
 
 export enum AuthorizationStatus {
