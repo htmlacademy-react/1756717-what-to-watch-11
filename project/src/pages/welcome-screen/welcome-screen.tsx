@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getFilmsSelectedByGenre } from '../../util';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import { useEffect } from 'react';
-import { fetchFilmsAction, fetchPromoFilmAction } from '../../store/api-actions';
+import { fetchFavoriteFilmsAction, fetchFilmsAction, fetchPromoFilmAction } from '../../store/api-actions';
 import { getFilms, getPromoFilm } from '../../store/films-data/selectors';
 import { getFilmsAmount, getGenre } from '../../store/films-process/selectors';
 import { resetFilmsInListAmount, setFilmsInListAmount } from '../../store/films-process/films-process';
@@ -30,6 +30,7 @@ function WelcomeScreen(): JSX.Element {
 
   useEffect(() => {
     dispatch(fetchPromoFilmAction());
+    dispatch(fetchFavoriteFilmsAction());
   }, [dispatch]);
 
   useEffect(() => {

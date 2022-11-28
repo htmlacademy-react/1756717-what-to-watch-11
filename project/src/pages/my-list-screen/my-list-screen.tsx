@@ -1,14 +1,21 @@
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import FilmsList from '../../components/films-list/films-list';
 import Logo from '../../components/logo/logo';
 import UserBlock from '../../components/user-block/user-block';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchFavoriteFilmsAction } from '../../store/api-actions';
 import { getFavoriteFilms, getFavoriteFilmsDataLoadingStatus } from '../../store/films-data/selectors';
 import LoadingScreen from '../loading-screen/loading-screen';
 
 function MyListScreen(): JSX.Element {
   const films = useAppSelector(getFavoriteFilms);
   const isFavoriteFilmsDataLoading = useAppSelector(getFavoriteFilmsDataLoadingStatus);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchFavoriteFilmsAction());
+  }, [dispatch]);
 
   if (isFavoriteFilmsDataLoading) {
     return <LoadingScreen />;
