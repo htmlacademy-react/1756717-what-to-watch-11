@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
+import './not-found-screen.css';
 
 function NotFoundScreen(): JSX.Element {
   return (
@@ -13,9 +14,9 @@ function NotFoundScreen(): JSX.Element {
           <Logo />
         </div>
       </header>
-      <main style={{ display: 'flex', flexDirection: 'column' }}>
-        <h1 className="page-title" style={{ marginBottom: '50px' }}>404. Page not found</h1>
-        <Link to="/" style={{ textAlign: 'center', color: '#dfcf77' }}>Back to the main page</Link>
+      <main>
+        <h1 className="page-title">404. Page not found</h1>
+        <Link className="link" to="/">Back to the main page</Link>
       </main>
     </div>
   );

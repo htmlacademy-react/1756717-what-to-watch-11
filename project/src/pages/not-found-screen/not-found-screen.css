@@ -1,0 +1,13 @@
+main {
+  display: flex;
+  flex-direction: column;
+}
+
+.page-title {
+  margin-bottom: 50px;
+}
+
+.link {
+  text-align: center;
+  color: #dfcf77;
+}
