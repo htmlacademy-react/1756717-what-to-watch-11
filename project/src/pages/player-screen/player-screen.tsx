@@ -38,25 +38,32 @@ function PlayerScreen(): JSX.Element {
 
   useEffect(() => {
     let isVideoPlayerMounted = true;
+    const videoRefCurrentProp = videoRef.current;
 
-    if (videoRef.current === null) {
+    if (videoRefCurrentProp === null) {
       return;
     }
 
-    videoRef.current.addEventListener('loadeddata', () => {
-      if (videoRef.current && isVideoPlayerMounted) {
-        setDurationTime(Math.trunc(videoRef.current.duration));
+    const handleDurationTimeWatch = () => {
+      if (videoRefCurrentProp && isVideoPlayerMounted) {
+        setDurationTime(Math.trunc(videoRefCurrentProp.duration));
       }
-    });
+    };
 
-    videoRef.current.addEventListener('timeupdate', () => {
-      if (videoRef.current && isVideoPlayerMounted) {
-        setCurrentTime(Math.trunc(videoRef.current.currentTime));
+    const handleCurrentTimeWatch = () => {
+      if (videoRefCurrentProp && isVideoPlayerMounted) {
+        setCurrentTime(Math.trunc(videoRefCurrentProp.currentTime));
       }
-    });
+    };
+
+    videoRefCurrentProp.addEventListener('loadeddata', handleDurationTimeWatch);
+
+    videoRefCurrentProp.addEventListener('timeupdate', handleCurrentTimeWatch);
 
     return () => {
       isVideoPlayerMounted = false;
+      videoRefCurrentProp.removeEventListener('loadeddata', handleDurationTimeWatch);
+      videoRefCurrentProp.removeEventListener('timeupdate', handleCurrentTimeWatch);
     };
   });
 

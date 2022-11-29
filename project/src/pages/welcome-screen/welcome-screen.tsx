@@ -12,8 +12,9 @@ import { getFilms, getPromoFilm } from '../../store/films-data/selectors';
 import { getFilmsAmount, getGenre } from '../../store/films-process/selectors';
 import { resetFilmsInListAmount, setFilmsInListAmount } from '../../store/films-process/films-process';
 import Logo from '../../components/logo/logo';
-import { AppRoute } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import FavoriteButton from '../../components/favorite-button/favorite-button';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 function WelcomeScreen(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -21,6 +22,7 @@ function WelcomeScreen(): JSX.Element {
   const navigate = useNavigate();
 
   const films = useAppSelector(getFilms);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   useEffect(() => {
     if (films.length <= 0) {
@@ -30,8 +32,10 @@ function WelcomeScreen(): JSX.Element {
 
   useEffect(() => {
     dispatch(fetchPromoFilmAction());
-    dispatch(fetchFavoriteFilmsAction());
-  }, [dispatch]);
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(fetchFavoriteFilmsAction());
+    }
+  }, [authorizationStatus, dispatch]);
 
   useEffect(() => {
     dispatch(resetFilmsInListAmount());
