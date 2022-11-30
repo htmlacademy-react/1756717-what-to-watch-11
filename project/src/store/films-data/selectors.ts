@@ -13,6 +13,8 @@ export const getPromoFilm = (state: State): Film => state[NameSpace.Data].promoF
 
 export const getSimilarFilms = (state: State): Films => state[NameSpace.Data].similarFilms;
 
+export const getFavoriteFilms = (state: State): Films => state[NameSpace.Data].favoriteFilms;
+
 export const getFilmsDataLoadingStatus = (state: State): boolean => state[NameSpace.Data].isFilmsDataLoading;
 
 export const getFilmDataLoadingStatus = (state: State): boolean => state[NameSpace.Data].isFilmDataLoading;
@@ -20,5 +22,7 @@ export const getFilmDataLoadingStatus = (state: State): boolean => state[NameSpa
 export const getFilmReviewsDataLoadingStatus = (state: State): boolean => state[NameSpace.Data].isFilmReviewsDataLoading;
 
 export const getSimilarFilmsDataLoadingStatus = (state: State): boolean => state[NameSpace.Data].isSimilarFilmsDataLoading;
+
+export const getFavoriteFilmsDataLoadingStatus = (state: State): boolean => state[NameSpace.Data].isFavoriteFilmsDataLoading;
 
 export const getReviewFormAvailabilityStatus = (state: State): boolean => state[NameSpace.Data].isReviewFormDisabled;

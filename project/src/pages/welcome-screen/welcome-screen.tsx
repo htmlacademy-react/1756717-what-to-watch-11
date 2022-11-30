@@ -7,12 +7,14 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getFilmsSelectedByGenre } from '../../util';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import { useEffect } from 'react';
-import { fetchFilmsAction, fetchPromoFilmAction } from '../../store/api-actions';
+import { fetchFavoriteFilmsAction, fetchFilmsAction, fetchPromoFilmAction } from '../../store/api-actions';
 import { getFilms, getPromoFilm } from '../../store/films-data/selectors';
 import { getFilmsAmount, getGenre } from '../../store/films-process/selectors';
 import { resetFilmsInListAmount, setFilmsInListAmount } from '../../store/films-process/films-process';
 import Logo from '../../components/logo/logo';
-import { AppRoute } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import FavoriteButton from '../../components/favorite-button/favorite-button';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 function WelcomeScreen(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -20,6 +22,7 @@ function WelcomeScreen(): JSX.Element {
   const navigate = useNavigate();
 
   const films = useAppSelector(getFilms);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   useEffect(() => {
     if (films.length <= 0) {
@@ -29,7 +32,10 @@ function WelcomeScreen(): JSX.Element {
 
   useEffect(() => {
     dispatch(fetchPromoFilmAction());
-  }, [dispatch]);
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(fetchFavoriteFilmsAction());
+    }
+  }, [authorizationStatus, dispatch]);
 
   useEffect(() => {
     dispatch(resetFilmsInListAmount());
@@ -85,13 +91,7 @@ function WelcomeScreen(): JSX.Element {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">9</span>
-                </button>
+                <FavoriteButton filmId={promoFilm.id}/>
               </div>
             </div>
           </div>

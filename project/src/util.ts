@@ -1,5 +1,18 @@
 import { FilmSettings } from './const';
 import { Films } from './types/films';
+/*interface HTMLVideoElement {
+  webkitRequestFullscreen: () => void;
+  mozRequestFullscreen: () => void;
+  msRequestFullscreen: () => void;
+  requestFullscreen: () => void;
+}
+
+interface Document {
+  webkitExitFullscreen: () => void;
+  exitFullscreen: () => void;
+  mozCancelFullscreen: () => void;
+  msExitFullscreen: () => void;
+}*/
 
 export const getFormatPlayerTime = (time: number) => {
   if (time >= 60) {
