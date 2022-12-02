@@ -58,7 +58,7 @@ function WelcomeScreen(): JSX.Element {
           <title>WTW. Welcome!</title>
         </Helmet>
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={promoFilm.backgroundImage} alt={promoFilm.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
