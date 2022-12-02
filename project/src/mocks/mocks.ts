@@ -79,7 +79,7 @@ export const mockReviews = [
       name: 'Emely'
     },
     rating: 5.3,
-    comment: 'The editing is a mess, and the transitions of the plot or characters are rather strange. There is no narrative focus and the storytelling is unbalanced. I cannot really understand why such a bad movie received an overwhelming approval from the critics. ',
+    comment: 'The editing is a mess, and the transitions of the plot or characters are rather strange. There is no narrative focus and the storytelling is unbalanced. I cannot really understand why such a bad movie received an overwhelming approval from the critics.',
     date: '2022-10-03T13:58:46.523Z'
   }
 ];

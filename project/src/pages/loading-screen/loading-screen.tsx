@@ -2,7 +2,7 @@ import './loading-screen.css';
 
 function LoadingScreen(): JSX.Element {
   return (
-    <div className="spinner">
+    <div className="spinner" data-testid="spinner">
       <div className="blob top"></div>
       <div className="blob bottom"></div>
       <div className="blob left"></div>
