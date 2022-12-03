@@ -7,7 +7,7 @@ type FilmReviewProps = {
 
 function FilmReview({review}: FilmReviewProps): JSX.Element {
   return (
-    <div className="review">
+    <div className="review" data-testid="review">
       <blockquote className="review__quote">
         <p className="review__text">{review.comment}</p>
 

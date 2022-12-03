@@ -26,7 +26,7 @@ function FilmCard({ film }: FilmCardProps): JSX.Element {
   };
 
   return (
-    <article className="small-film-card catalog__films-card" id={film.id.toString()} onMouseEnter={handleFilmCardMouseEnter} onMouseLeave={handleFilmCardMouseLeave}>
+    <article className="small-film-card catalog__films-card" id={film.id.toString()} onMouseEnter={handleFilmCardMouseEnter} onMouseLeave={handleFilmCardMouseLeave} data-testid="film">
       <div className="small-film-card__image">
         {
           isActive ?
