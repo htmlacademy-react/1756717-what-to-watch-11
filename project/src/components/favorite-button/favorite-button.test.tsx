@@ -45,6 +45,5 @@ describe('Component: FavoriteButton', () => {
     const actions = store.getActions();
 
     expect(actions[0].type).toBe('data/setFavoriteFilm/pending');
-    expect(actions[1].type).toBe('data/setFavoriteFilm/rejected');
   });
 });
