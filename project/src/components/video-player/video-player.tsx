@@ -28,7 +28,7 @@ function VideoPlayer({ film }: VideoPlayerProps): JSX.Element {
   }, []);
 
   return (
-    <video src={film.previewVideoLink} width="280" height="175" ref={videoRef} muted autoPlay/>
+    <video src={film.previewVideoLink} width="280" height="175" ref={videoRef} muted autoPlay data-testid="video"/>
   );
 }
 

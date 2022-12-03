@@ -9,7 +9,7 @@ import { Route, Routes } from 'react-router-dom';
 
 const history = createMemoryHistory();
 const film = mockFilm;
-describe('Component: FilmReview', () => {
+describe('Component: FilmCard', () => {
   it('should render correctly', () => {
     render(
       <HistoryRouter history={history}>
