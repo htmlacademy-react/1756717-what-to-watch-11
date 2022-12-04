@@ -5,6 +5,7 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import { Provider } from 'react-redux';
 import { mockFilms } from '../../mocks/mocks';
 import GenresList from './genres-list';
+import userEvent from '@testing-library/user-event';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore();
@@ -28,5 +29,22 @@ describe('Component: GenresList', () => {
     expect(screen.getByText(films[0].genre)).toBeInTheDocument();
     expect(screen.getByText(films[1].genre)).toBeInTheDocument();
     expect(screen.getByText(/All genre/)).toBeInTheDocument();
+  });
+
+  it('should dispatch changeGenre and resetFilmsInListAmount when user click on the link', async () => {
+    render(
+      <Provider store={store}>
+        <HistoryRouter history={history}>
+          <GenresList />
+        </HistoryRouter>
+      </Provider>,
+    );
+
+    await userEvent.click(screen.getByText('Drama'));
+
+    const actions = store.getActions();
+
+    expect(actions[0].type).toBe('FILMS/changeGenre');
+    expect(actions[1].type).toBe('FILMS/resetFilmsInListAmount');
   });
 });

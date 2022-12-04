@@ -5,9 +5,11 @@ import FavoriteButton from './favorite-button';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { Provider } from 'react-redux';
 import { mockFilm, mockFilms } from '../../mocks/mocks';
+import userEvent from '@testing-library/user-event';
+import thunk from 'redux-thunk';
 
 const history = createMemoryHistory();
-const mockStore = configureMockStore();
+const mockStore = configureMockStore([thunk]);
 const film = mockFilm;
 const favoriteFilms = mockFilms;
 const store = mockStore({
@@ -27,5 +29,21 @@ describe('Component: FavoriteButton', () => {
     expect(screen.getByText(/My list/)).toBeInTheDocument();
     expect(screen.getByRole('button')).toBeInTheDocument();
     expect(screen.getByRole('button')).toHaveTextContent(favoriteFilms.length.toString());
+  });
+
+  it('should dispatch setFavoriteFilmAction when user clicked to the button', async () => {
+    render(
+      <Provider store={store}>
+        <HistoryRouter history={history}>
+          <FavoriteButton filmId={filmId} />
+        </HistoryRouter>
+      </Provider>,
+    );
+
+    await userEvent.click(screen.getByRole('button'));
+
+    const actions = store.getActions();
+
+    expect(actions[0].type).toBe('data/setFavoriteFilm/pending');
   });
 });
