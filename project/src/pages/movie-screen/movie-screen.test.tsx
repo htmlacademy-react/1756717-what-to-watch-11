@@ -16,7 +16,8 @@ const mockStore = configureMockStore([thunk]);
 const film = mockFilm;
 const similarFilms = mockFilms;
 const favoriteFilms = mockFilms;
-
+const noop = jest.fn();
+Object.defineProperty(window, 'scrollTo', { value: noop, writable: true });
 describe('Component: MovieScreen', () => {
   it('should render correctly if user is not auth', () => {
     const authorizationStatus = AuthorizationStatus.NoAuth;

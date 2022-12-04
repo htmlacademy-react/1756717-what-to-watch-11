@@ -121,7 +121,7 @@ function PlayerScreen(): JSX.Element {
       <Helmet>
         <title>WTW. Player</title>
       </Helmet>
-      <video src={film.videoLink} className="player__video" poster={film.backgroundImage} ref={videoRef} autoPlay></video>
+      <video src={film.videoLink} className="player__video" poster={film.backgroundImage} ref={videoRef} autoPlay data-testid="video"></video>
 
       <button type="button" className="player__exit" onClick={handleExitButtonClick}>Exit</button>
 

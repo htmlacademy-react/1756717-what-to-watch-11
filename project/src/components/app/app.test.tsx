@@ -16,6 +16,8 @@ const favoriteFilms = mockFilms;
 const genre = 'Drama';
 const films = mockFilms;
 const reviews = mockReviews;
+const noop = jest.fn();
+Object.defineProperty(window, 'scrollTo', { value: noop, writable: true });
 
 const store = mockStore({
   USER: {authorizationStatus: AuthorizationStatus.NoAuth},
