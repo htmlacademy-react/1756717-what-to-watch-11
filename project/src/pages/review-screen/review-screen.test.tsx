@@ -6,7 +6,9 @@ import ReviewScreen from './review-screen';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { mockFilm } from '../../mocks/mocks';
 import { Provider } from 'react-redux';
-import { AuthorizationStatus } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import { Route, Routes } from 'react-router-dom';
+import userEvent from '@testing-library/user-event';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore();
@@ -31,5 +33,31 @@ describe('Component: ReviewScreen', () => {
     expect(screen.getByText(/Add review/)).toBeInTheDocument();
     expect(screen.getByText(film.name)).toBeInTheDocument();
     expect(screen.getByAltText(film.name)).toBeInTheDocument();
+  });
+
+  it('should redirect to movie screen if user clicks on the breadcrumbs', async () => {
+    history.push(`${AppRoute.Film}/${film.id}/${AppRoute.AddReview}`);
+
+    render(
+      <Provider store={store}>
+        <HistoryRouter history={history}>
+          <HelmetProvider>
+            <Routes>
+              <Route
+                path={`${AppRoute.Film}/${film.id}/${AppRoute.AddReview}`}
+                element={<ReviewScreen />}
+              />
+              <Route
+                path={`${AppRoute.Film}/${film.id}`}
+                element={<h1>Movie Screen</h1>}
+              />
+            </Routes>
+          </HelmetProvider>
+        </HistoryRouter>
+      </Provider>,
+    );
+
+    await userEvent.click(screen.getByText(film.name));
+    expect(screen.getByText('Movie Screen')).toBeInTheDocument();
   });
 });
