@@ -53,7 +53,7 @@ function MovieScreen(): JSX.Element {
 
   return (
     <>
-      <section className="film-card film-card--full">
+      <section className="film-card film-card--full" style={{ backgroundColor: film.backgroundColor }}>
         <Helmet>
           <title>WTW. Film-page</title>
         </Helmet>
@@ -87,7 +87,7 @@ function MovieScreen(): JSX.Element {
                   </svg>
                   <span>Play</span>
                 </button>
-                <FavoriteButton filmId={film.id}/>
+                <FavoriteButton filmId={film.id} />
                 {authorizationStatus === AuthorizationStatus.Auth && <Link className="btn film-card__button" to={`${AppRoute.Film}/${film.id}/${AppRoute.AddReview}`}>Add review</Link>}
               </div>
             </div>

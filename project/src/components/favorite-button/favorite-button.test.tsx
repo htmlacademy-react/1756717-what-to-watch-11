@@ -6,13 +6,16 @@ import { mockFilm, mockFilms } from '../../mocks/mocks';
 import userEvent from '@testing-library/user-event';
 import thunk from 'redux-thunk';
 import { renderWithReduxAndHistoryRoater } from '../../mocks/test-util';
+import { AuthorizationStatus } from '../../const';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore([thunk]);
 const film = mockFilm;
 const favoriteFilms = mockFilms;
+const authorizationStatus = AuthorizationStatus.Auth;
 const store = mockStore({
   DATA: { film: film, favoriteFilms: favoriteFilms },
+  USER: { authorizationStatus: authorizationStatus }
 });
 const filmId = film.id;
 describe('Component: FavoriteButton', () => {

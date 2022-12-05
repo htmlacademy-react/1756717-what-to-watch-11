@@ -18,10 +18,19 @@ describe('Component: FilmCard', () => {
   });
 
   it('should redirect to movie screen when user click on the link', async () => {
-
+    history.push(AppRoute.Main);
     renderWithHistoryRouterAndRoutes(history, AppRoute.Main, <FilmCard film={film}/>, `${AppRoute.Film}/${film.id}`, <h1>Movie Screen</h1>);
 
     await userEvent.click(screen.getByRole('link'));
+
+    expect(screen.getByText('Movie Screen')).toBeInTheDocument();
+  });
+
+  it('should redirect to movie screen when user click on the card', async () => {
+    history.push(AppRoute.Main);
+    renderWithHistoryRouterAndRoutes(history, AppRoute.Main, <FilmCard film={film}/>, `${AppRoute.Film}/${film.id}`, <h1>Movie Screen</h1>);
+
+    await userEvent.click(screen.getByTestId('film'));
 
     expect(screen.getByText('Movie Screen')).toBeInTheDocument();
   });
