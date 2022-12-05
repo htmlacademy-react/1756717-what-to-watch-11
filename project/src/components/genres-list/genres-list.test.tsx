@@ -1,11 +1,10 @@
 import { createMemoryHistory } from 'history';
-import { render, screen } from '@testing-library/react';
-import HistoryRouter from '../history-route/history-route';
+import { screen } from '@testing-library/react';
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import { Provider } from 'react-redux';
 import { mockFilms } from '../../mocks/mocks';
 import GenresList from './genres-list';
 import userEvent from '@testing-library/user-event';
+import { renderWithReduxAndHistoryRoater } from '../../mocks/test-util';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore();
@@ -17,13 +16,7 @@ const store = mockStore({
 });
 describe('Component: GenresList', () => {
   it('should render correctly', () => {
-    render(
-      <Provider store={store}>
-        <HistoryRouter history={history}>
-          <GenresList />
-        </HistoryRouter>
-      </Provider>,
-    );
+    renderWithReduxAndHistoryRoater(<GenresList />, store, history);
 
     expect(screen.getAllByTestId('genre').length).toBe(films.length + 1);
     expect(screen.getByText(films[0].genre)).toBeInTheDocument();
@@ -32,13 +25,8 @@ describe('Component: GenresList', () => {
   });
 
   it('should dispatch changeGenre and resetFilmsInListAmount when user click on the link', async () => {
-    render(
-      <Provider store={store}>
-        <HistoryRouter history={history}>
-          <GenresList />
-        </HistoryRouter>
-      </Provider>,
-    );
+
+    renderWithReduxAndHistoryRoater(<GenresList />, store, history);
 
     await userEvent.click(screen.getByText('Drama'));
 

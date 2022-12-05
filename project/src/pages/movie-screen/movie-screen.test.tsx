@@ -1,15 +1,12 @@
 import { createMemoryHistory } from 'history';
-import { render, screen } from '@testing-library/react';
-import HistoryRouter from '../../components/history-route/history-route';
+import { screen } from '@testing-library/react';
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import { Provider } from 'react-redux';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import thunk from 'redux-thunk';
 import userEvent from '@testing-library/user-event';
-import { Route, Routes } from 'react-router-dom';
-import { HelmetProvider } from 'react-helmet-async';
 import MovieScreen from './movie-screen';
 import { mockFilm, mockFilms } from '../../mocks/mocks';
+import { renderWithReduxAndHistoryRoaterWithHelmet, renderWithReduxHistoryRoaterHelmetAndRoutes } from '../../mocks/test-util';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore([thunk]);
@@ -25,15 +22,7 @@ describe('Component: MovieScreen', () => {
       DATA: { film: film, similarFilms: similarFilms, favoriteFilms: favoriteFilms },
       USER: {authorizationStatus: authorizationStatus}
     });
-    render(
-      <Provider store={store}>
-        <HistoryRouter history={history}>
-          <HelmetProvider>
-            <MovieScreen />
-          </HelmetProvider>
-        </HistoryRouter>
-      </Provider>,
-    );
+    renderWithReduxAndHistoryRoaterWithHelmet(<MovieScreen />, store, history);
 
     expect(screen.getByText(/Play/)).toBeInTheDocument();
     expect(screen.getByText(/More like this/)).toBeInTheDocument();
@@ -49,15 +38,7 @@ describe('Component: MovieScreen', () => {
       DATA: { film: film, similarFilms: similarFilms, favoriteFilms: favoriteFilms },
       USER: {authorizationStatus: authorizationStatus}
     });
-    render(
-      <Provider store={store}>
-        <HistoryRouter history={history}>
-          <HelmetProvider>
-            <MovieScreen />
-          </HelmetProvider>
-        </HistoryRouter>
-      </Provider>,
-    );
+    renderWithReduxAndHistoryRoaterWithHelmet(<MovieScreen />, store, history);
 
     expect(screen.getByText(/Play/)).toBeInTheDocument();
     expect(screen.getByText(/More like this/)).toBeInTheDocument();
@@ -74,24 +55,8 @@ describe('Component: MovieScreen', () => {
       DATA: { film: film, similarFilms: similarFilms, favoriteFilms: favoriteFilms },
       USER: {authorizationStatus: authorizationStatus}
     });
-    render(
-      <Provider store={store}>
-        <HistoryRouter history={history}>
-          <HelmetProvider>
-            <Routes>
-              <Route
-                path={`${AppRoute.Film}/${film.id}`}
-                element={<MovieScreen />}
-              />
-              <Route
-                path={`${AppRoute.Player}/${film.id}`}
-                element={<h1>Player Screen</h1>}
-              />
-            </Routes>
-          </HelmetProvider>
-        </HistoryRouter>
-      </Provider>,
-    );
+
+    renderWithReduxHistoryRoaterHelmetAndRoutes(store, history, `${AppRoute.Film}/${film.id}`, <MovieScreen />, `${AppRoute.Player}/${film.id}`, <h1>Player Screen</h1>);
 
     await userEvent.click(screen.getByTestId('play-button'));
     expect(screen.getByText('Player Screen')).toBeInTheDocument();

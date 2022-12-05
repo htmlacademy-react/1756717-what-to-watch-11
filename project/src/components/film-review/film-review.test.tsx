@@ -1,20 +1,16 @@
 import { createMemoryHistory } from 'history';
-import { render, screen } from '@testing-library/react';
-import HistoryRouter from '../history-route/history-route';
+import { screen } from '@testing-library/react';
 import { mockReviews } from '../../mocks/mocks';
 import FilmReview from './film-review';
 import { getFormatReviewDate } from '../../util';
+import { renderWithHistoryRouter } from '../../mocks/test-util';
 
 const history = createMemoryHistory();
 describe('Component: FilmReview', () => {
   it('should render correctly', () => {
     const review = mockReviews[0];
 
-    render(
-      <HistoryRouter history={history}>
-        <FilmReview review={review} />
-      </HistoryRouter>
-    );
+    renderWithHistoryRouter(<FilmReview review={review} />, history);
 
     expect(screen.getByText(review.comment)).toBeInTheDocument();
     expect(screen.getByText(review.user.name)).toBeInTheDocument();

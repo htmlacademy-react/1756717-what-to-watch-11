@@ -1,15 +1,12 @@
 import { createMemoryHistory } from 'history';
-import { render, screen } from '@testing-library/react';
-import HistoryRouter from '../../components/history-route/history-route';
+import { screen } from '@testing-library/react';
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import { Provider } from 'react-redux';
 import { AppRoute } from '../../const';
 import thunk from 'redux-thunk';
 import userEvent from '@testing-library/user-event';
-import { Route, Routes } from 'react-router-dom';
-import { HelmetProvider } from 'react-helmet-async';
 import { mockFilm } from '../../mocks/mocks';
 import PlayerScreen from './player-screen';
+import { renderWithReduxAndHistoryRoaterWithHelmet, renderWithReduxHistoryRoaterHelmetAndRoutes } from '../../mocks/test-util';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore([thunk]);
@@ -26,15 +23,7 @@ describe('Component: PlayerScreen', () => {
     const store = mockStore({
       DATA: { film: film },
     });
-    render(
-      <Provider store={store}>
-        <HistoryRouter history={history}>
-          <HelmetProvider>
-            <PlayerScreen />
-          </HelmetProvider>
-        </HistoryRouter>
-      </Provider>,
-    );
+    renderWithReduxAndHistoryRoaterWithHelmet(<PlayerScreen />, store, history);
 
     expect(screen.getByText(/Exit/)).toBeInTheDocument();
     expect(screen.getByTestId('video')).toBeInTheDocument();
@@ -46,24 +35,8 @@ describe('Component: PlayerScreen', () => {
     const store = mockStore({
       DATA: { film: film },
     });
-    render(
-      <Provider store={store}>
-        <HistoryRouter history={history}>
-          <HelmetProvider>
-            <Routes>
-              <Route
-                path={`${AppRoute.Player}/${film.id}`}
-                element={<PlayerScreen />}
-              />
-              <Route
-                path={`${AppRoute.Film}/${film.id}`}
-                element={<h1>Movie Screen</h1>}
-              />
-            </Routes>
-          </HelmetProvider>
-        </HistoryRouter>
-      </Provider>,
-    );
+
+    renderWithReduxHistoryRoaterHelmetAndRoutes(store, history, `${AppRoute.Player}/${film.id}`, <PlayerScreen />, `${AppRoute.Film}/${film.id}`, <h1>Movie Screen</h1>);
 
     await userEvent.click(screen.getByText(/Exit/));
     expect(screen.getByText('Movie Screen')).toBeInTheDocument();

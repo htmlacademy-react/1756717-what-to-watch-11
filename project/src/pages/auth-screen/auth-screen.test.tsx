@@ -1,14 +1,11 @@
 import { createMemoryHistory } from 'history';
-import { render, screen } from '@testing-library/react';
-import HistoryRouter from '../../components/history-route/history-route';
+import { screen } from '@testing-library/react';
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import { Provider } from 'react-redux';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import thunk from 'redux-thunk';
 import userEvent from '@testing-library/user-event';
-import { Route, Routes } from 'react-router-dom';
 import AuthScreen from './auth-screen';
-import { HelmetProvider } from 'react-helmet-async';
+import { renderWithReduxAndHistoryRoaterWithHelmet, renderWithReduxHistoryRoaterHelmetAndRoutes } from '../../mocks/test-util';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore([thunk]);
@@ -20,15 +17,7 @@ describe('Component: AuthScreen', () => {
     const store = mockStore({
       USER: { authorizationStatus: authorizationStatus }
     });
-    render(
-      <Provider store={store}>
-        <HistoryRouter history={history}>
-          <HelmetProvider>
-            <AuthScreen />
-          </HelmetProvider>
-        </HistoryRouter>
-      </Provider>,
-    );
+    renderWithReduxAndHistoryRoaterWithHelmet(<AuthScreen />, store, history);
 
     expect(screen.getAllByText(/Sign in/).length).toBe(2);
     expect(screen.getByRole('button')).toBeInTheDocument();
@@ -41,15 +30,7 @@ describe('Component: AuthScreen', () => {
     const store = mockStore({
       USER: { authorizationStatus: authorizationStatus }
     });
-    render(
-      <Provider store={store}>
-        <HistoryRouter history={history}>
-          <HelmetProvider>
-            <AuthScreen />
-          </HelmetProvider>
-        </HistoryRouter>
-      </Provider>,
-    );
+    renderWithReduxAndHistoryRoaterWithHelmet(<AuthScreen />, store, history);
 
     await userEvent.type(screen.getByPlaceholderText('Email address'), 'elis@mail.ru');
     await userEvent.type(screen.getByPlaceholderText('Password'), '159357');
@@ -71,24 +52,7 @@ describe('Component: AuthScreen', () => {
     const store = mockStore({
       USER: { authorizationStatus: authorizationStatus }
     });
-    render(
-      <Provider store={store}>
-        <HistoryRouter history={history}>
-          <HelmetProvider>
-            <Routes>
-              <Route
-                path={AppRoute.SignIn}
-                element={<AuthScreen />}
-              />
-              <Route
-                path={AppRoute.Main}
-                element={<h1>Main Screen</h1>}
-              />
-            </Routes>
-          </HelmetProvider>
-        </HistoryRouter>
-      </Provider>,
-    );
+    renderWithReduxHistoryRoaterHelmetAndRoutes(store, history, AppRoute.SignIn, <AuthScreen />, AppRoute.Main, <h1>Main Screen</h1>);
 
     expect(screen.getByText('Main Screen')).toBeInTheDocument();
   });

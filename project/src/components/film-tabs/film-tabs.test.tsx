@@ -1,10 +1,10 @@
 import { createMemoryHistory } from 'history';
-import { render, screen } from '@testing-library/react';
-import HistoryRouter from '../history-route/history-route';
+import { screen } from '@testing-library/react';
 import { mockFilm, mockReviews } from '../../mocks/mocks';
 import FilmTabs from './film-tabs';
 import userEvent from '@testing-library/user-event';
 import { getFormatDetailsFilmRunTime, getRatingLevel, getRowList } from '../../util';
+import { renderWithHistoryRouter } from '../../mocks/test-util';
 
 const history = createMemoryHistory();
 const film = mockFilm;
@@ -12,12 +12,7 @@ const reviews = mockReviews;
 describe('Component: FilmTabs', () => {
   it('should render correctly', () => {
 
-    render(
-      <HistoryRouter history={history}>
-        <FilmTabs film={film} reviews={reviews} />
-      </HistoryRouter>
-    );
-
+    renderWithHistoryRouter(<FilmTabs film={film} reviews={reviews} />, history);
 
     expect(screen.getByText(/Overview/)).toBeInTheDocument();
     expect(screen.getByText(/Details/)).toBeInTheDocument();
@@ -26,11 +21,7 @@ describe('Component: FilmTabs', () => {
 
   it('should show overview when user click the link', async () => {
 
-    render(
-      <HistoryRouter history={history}>
-        <FilmTabs film={film} reviews={reviews} />
-      </HistoryRouter>
-    );
+    renderWithHistoryRouter(<FilmTabs film={film} reviews={reviews} />, history);
 
     const ratings = `${film.scoresCount} ratings`;
     const director = `Director: ${film.director}`;
@@ -48,11 +39,7 @@ describe('Component: FilmTabs', () => {
 
   it('should show details when user click the link', async () => {
 
-    render(
-      <HistoryRouter history={history}>
-        <FilmTabs film={film} reviews={reviews} />
-      </HistoryRouter>
-    );
+    renderWithHistoryRouter(<FilmTabs film={film} reviews={reviews} />, history);
 
     await userEvent.click(screen.getByText(/Details/));
 
@@ -69,11 +56,7 @@ describe('Component: FilmTabs', () => {
 
   it('should show reviews when user click the link', async () => {
 
-    render(
-      <HistoryRouter history={history}>
-        <FilmTabs film={film} reviews={reviews} />
-      </HistoryRouter>
-    );
+    renderWithHistoryRouter(<FilmTabs film={film} reviews={reviews} />, history);
 
     await userEvent.click(screen.getByText(/Reviews/));
 

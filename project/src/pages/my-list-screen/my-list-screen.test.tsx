@@ -1,13 +1,11 @@
 import { createMemoryHistory } from 'history';
-import { render, screen } from '@testing-library/react';
-import HistoryRouter from '../../components/history-route/history-route';
+import { screen } from '@testing-library/react';
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import { Provider } from 'react-redux';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import thunk from 'redux-thunk';
-import { HelmetProvider } from 'react-helmet-async';
 import { mockFilms } from '../../mocks/mocks';
 import MyListScreen from './my-list-screen';
+import { renderWithReduxAndHistoryRoaterWithHelmet } from '../../mocks/test-util';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore([thunk]);
@@ -21,15 +19,7 @@ describe('Component: MyListScreen', () => {
       DATA: { favoriteFilms: favoriteFilms },
       USER: {authorizationStatus: authorizationStatus}
     });
-    render(
-      <Provider store={store}>
-        <HistoryRouter history={history}>
-          <HelmetProvider>
-            <MyListScreen />
-          </HelmetProvider>
-        </HistoryRouter>
-      </Provider>,
-    );
+    renderWithReduxAndHistoryRoaterWithHelmet(<MyListScreen />, store, history);
 
     expect(screen.getByText(/My list/)).toBeInTheDocument();
   });

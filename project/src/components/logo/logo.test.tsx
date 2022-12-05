@@ -1,20 +1,15 @@
 import { createMemoryHistory } from 'history';
-import { render, screen } from '@testing-library/react';
-import HistoryRouter from '../history-route/history-route';
+import { screen } from '@testing-library/react';
 import Logo from './logo';
-import { Route, Routes } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import userEvent from '@testing-library/user-event';
+import {renderWithHistoryRouter, renderWithHistoryRouterAndRoutes} from '../../mocks/test-util';
 
 const history = createMemoryHistory();
 describe('Component: Logo', () => {
   it('should render correctly', () => {
 
-    render(
-      <HistoryRouter history={history}>
-        <Logo />
-      </HistoryRouter>
-    );
+    renderWithHistoryRouter(<Logo />, history);
 
     expect(screen.getByText(/T/)).toBeInTheDocument();
     expect(screen.getAllByText('W').length).toBe(2);
@@ -23,21 +18,7 @@ describe('Component: Logo', () => {
   it('should redirect to main when user clicks', async () => {
     history.push(AppRoute.SignIn);
 
-    render(
-      <HistoryRouter history={history}>
-        <Routes>
-          <Route
-            path={AppRoute.SignIn}
-            element={<Logo />}
-          />
-          <Route
-            path={AppRoute.Main}
-            element={<h1>Main Screen</h1>}
-          />
-        </Routes>
-        <Logo />
-      </HistoryRouter>
-    );
+    renderWithHistoryRouterAndRoutes(history, AppRoute.SignIn, <Logo />, AppRoute.Main, <h1>Main Screen</h1>);
 
     await userEvent.click(screen.getAllByRole('link')[0]);
 
