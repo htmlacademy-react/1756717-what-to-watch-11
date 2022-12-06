@@ -3,7 +3,7 @@ import { screen } from '@testing-library/react';
 import { mockReviews } from '../../mocks/mocks';
 import FilmReview from './film-review';
 import { getFormatReviewDate } from '../../util';
-import { renderWithHistoryRouter } from '../../mocks/test-util';
+import { renderWithHistoryRouter } from '../../test-utils/test-utils';
 
 const history = createMemoryHistory();
 describe('Component: FilmReview', () => {

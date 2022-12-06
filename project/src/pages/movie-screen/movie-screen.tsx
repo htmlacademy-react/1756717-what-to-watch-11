@@ -8,7 +8,7 @@ import FilmsList from '../../components/films-list/films-list';
 import FilmTabs from '../../components/film-tabs/film-tabs';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchFilmAction, fetchFilmReviewsAction, fetchSimilarFilmsAction } from '../../store/api-actions';
+import { fetchFavoriteFilmsAction, fetchFilmAction, fetchFilmReviewsAction, fetchSimilarFilmsAction } from '../../store/api-actions';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { getFilm, getFilmDataLoadingStatus, getFilmReviews, getFilmReviewsDataLoadingStatus, getSimilarFilms, getSimilarFilmsDataLoadingStatus } from '../../store/films-data/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
@@ -18,7 +18,7 @@ function MovieScreen(): JSX.Element {
   const params = useParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [params.id]);
@@ -29,9 +29,12 @@ function MovieScreen(): JSX.Element {
       dispatch(fetchFilmAction(params.id));
       dispatch(fetchFilmReviewsAction(params.id));
       dispatch(fetchSimilarFilmsAction(params.id));
+      if (authorizationStatus === AuthorizationStatus.Auth) {
+        dispatch(fetchFavoriteFilmsAction());
+      }
     }
 
-  }, [params.id, dispatch]);
+  }, [params.id, dispatch, authorizationStatus]);
 
   const film = useAppSelector(getFilm);
   const reviews = useAppSelector(getFilmReviews);
@@ -39,7 +42,6 @@ function MovieScreen(): JSX.Element {
   const isFilmDataLoading = useAppSelector(getFilmDataLoadingStatus);
   const isFilmReviewsLoading = useAppSelector(getFilmReviewsDataLoadingStatus);
   const isSimilarFilmsLoading = useAppSelector(getSimilarFilmsDataLoadingStatus);
-  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   if (film === undefined) {
     return <NotFoundScreen />;

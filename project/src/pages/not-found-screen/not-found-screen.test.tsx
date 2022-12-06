@@ -3,7 +3,7 @@ import { createMemoryHistory } from 'history';
 import { AppRoute } from '../../const';
 import NotFoundScreen from './not-found-screen';
 import userEvent from '@testing-library/user-event';
-import { renderWithHistoryRouterAndHelmet, renderWithHistoryRouterHelmetAndRoutes } from '../../mocks/test-util';
+import { renderWithHistoryRouterAndHelmet, renderWithHistoryRouterHelmetAndRoutes } from '../../test-utils/test-utils';
 
 const history = createMemoryHistory();
 describe('Component: NotFoundScreen', () => {

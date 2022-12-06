@@ -4,7 +4,7 @@ import { mockFilm, mockReviews } from '../../mocks/mocks';
 import FilmTabs from './film-tabs';
 import userEvent from '@testing-library/user-event';
 import { getFormatDetailsFilmRunTime, getRatingLevel, getRowList } from '../../util';
-import { renderWithHistoryRouter } from '../../mocks/test-util';
+import { renderWithHistoryRouter } from '../../test-utils/test-utils';
 
 const history = createMemoryHistory();
 const film = mockFilm;

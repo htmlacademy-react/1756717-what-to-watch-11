@@ -3,7 +3,7 @@ import { screen } from '@testing-library/react';
 import Logo from './logo';
 import { AppRoute } from '../../const';
 import userEvent from '@testing-library/user-event';
-import {renderWithHistoryRouter, renderWithHistoryRouterAndRoutes} from '../../mocks/test-util';
+import {renderWithHistoryRouter, renderWithHistoryRouterAndRoutes} from '../../test-utils/test-utils';
 
 const history = createMemoryHistory();
 describe('Component: Logo', () => {

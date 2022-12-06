@@ -1,7 +1,7 @@
 import { createMemoryHistory } from 'history';
 import { screen } from '@testing-library/react';
 import ShowMoreButton from './show-more-button';
-import { renderWithHistoryRouter } from '../../mocks/test-util';
+import { renderWithHistoryRouter } from '../../test-utils/test-utils';
 
 const history = createMemoryHistory();
 describe('Component: ShowMoreButton', () => {

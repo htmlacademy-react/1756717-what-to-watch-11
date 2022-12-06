@@ -5,7 +5,7 @@ import UserBlock from './user-block';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import thunk from 'redux-thunk';
 import userEvent from '@testing-library/user-event';
-import { renderWithReduxAndHistoryRoater, renderWithReduxHistoryRoaterAndRoutes } from '../../mocks/test-util';
+import { renderWithReduxAndHistoryRoater, renderWithReduxHistoryRoaterAndRoutes } from '../../test-utils/test-utils';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore([thunk]);

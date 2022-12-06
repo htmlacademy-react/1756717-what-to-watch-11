@@ -5,7 +5,7 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 import thunk from 'redux-thunk';
 import { mockFilms } from '../../mocks/mocks';
 import MyListScreen from './my-list-screen';
-import { renderWithReduxAndHistoryRoaterWithHelmet } from '../../mocks/test-util';
+import { renderWithReduxAndHistoryRoaterWithHelmet } from '../../test-utils/test-utils';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore([thunk]);

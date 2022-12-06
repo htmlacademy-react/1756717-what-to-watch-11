@@ -4,7 +4,7 @@ import { mockFilm } from '../../mocks/mocks';
 import FilmCard from './film-card';
 import userEvent from '@testing-library/user-event';
 import { AppRoute } from '../../const';
-import { renderWithHistoryRouter, renderWithHistoryRouterAndRoutes } from '../../mocks/test-util';
+import { renderWithHistoryRouter, renderWithHistoryRouterAndRoutes } from '../../test-utils/test-utils';
 
 const history = createMemoryHistory();
 const film = mockFilm;

@@ -3,7 +3,7 @@ import { screen } from '@testing-library/react';
 import FilmTabDetails from './film-tab-details';
 import { mockFilm } from '../../mocks/mocks';
 import { getFormatDetailsFilmRunTime } from '../../util';
-import { renderWithHistoryRouter } from '../../mocks/test-util';
+import { renderWithHistoryRouter } from '../../test-utils/test-utils';
 
 const history = createMemoryHistory();
 const film = mockFilm;

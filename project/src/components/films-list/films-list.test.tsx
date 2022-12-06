@@ -2,7 +2,7 @@ import { createMemoryHistory } from 'history';
 import { screen } from '@testing-library/react';
 import { mockFilms } from '../../mocks/mocks';
 import FilmsList from './films-list';
-import { renderWithHistoryRouter } from '../../mocks/test-util';
+import { renderWithHistoryRouter } from '../../test-utils/test-utils';
 
 const history = createMemoryHistory();
 const films = mockFilms;

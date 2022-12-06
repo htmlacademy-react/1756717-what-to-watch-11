@@ -4,7 +4,7 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import { mockFilms } from '../../mocks/mocks';
 import GenresList from './genres-list';
 import userEvent from '@testing-library/user-event';
-import { renderWithReduxAndHistoryRoater } from '../../mocks/test-util';
+import { renderWithReduxAndHistoryRoater } from '../../test-utils/test-utils';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore();

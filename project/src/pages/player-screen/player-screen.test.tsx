@@ -6,7 +6,7 @@ import thunk from 'redux-thunk';
 import userEvent from '@testing-library/user-event';
 import { mockFilm } from '../../mocks/mocks';
 import PlayerScreen from './player-screen';
-import { renderWithReduxAndHistoryRoaterWithHelmet, renderWithReduxHistoryRoaterHelmetAndRoutes } from '../../mocks/test-util';
+import { renderWithReduxAndHistoryRoaterWithHelmet, renderWithReduxHistoryRoaterHelmetAndRoutes } from '../../test-utils/test-utils';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore([thunk]);

@@ -5,7 +5,7 @@ import { mockFilm } from '../../mocks/mocks';
 import ReviewForm from './review-form';
 import userEvent from '@testing-library/user-event';
 import thunk from 'redux-thunk';
-import { renderWithReduxAndHistoryRoater } from '../../mocks/test-util';
+import { renderWithReduxAndHistoryRoater } from '../../test-utils/test-utils';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore([thunk]);

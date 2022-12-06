@@ -42,3 +42,7 @@ export enum NameSpace {
   Films = 'FILMS',
 }
 
+export enum CommentLength {
+  Min = 50,
+  Max = 400,
+}

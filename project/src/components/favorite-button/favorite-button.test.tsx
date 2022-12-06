@@ -5,7 +5,7 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import { mockFilm, mockFilms } from '../../mocks/mocks';
 import userEvent from '@testing-library/user-event';
 import thunk from 'redux-thunk';
-import { renderWithReduxAndHistoryRoater } from '../../mocks/test-util';
+import { renderWithReduxAndHistoryRoater } from '../../test-utils/test-utils';
 import { AuthorizationStatus } from '../../const';
 
 const history = createMemoryHistory();
