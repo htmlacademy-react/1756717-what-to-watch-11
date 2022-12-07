@@ -1,20 +1,37 @@
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import Logo from '../../components/logo/logo';
 import UserBlock from '../../components/user-block/user-block';
 import ReviewForm from '../../components/review-form/review-form';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getFilm, getFilmDataLoadingStatus } from '../../store/films-data/selectors';
+import { useEffect } from 'react';
+import { fetchFilmAction } from '../../store/api-actions';
+import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import { useAppSelector } from '../../hooks';
-import { getFilm } from '../../store/films-data/selectors';
 
 function ReviewScreen(): JSX.Element {
 
+  const params = useParams();
+  const dispatch = useAppDispatch();
   const film = useAppSelector(getFilm);
+  const isFilmDataLoading = useAppSelector(getFilmDataLoadingStatus);
 
-  if (film === undefined) {
+  useEffect(() => {
+    if (params.id && film?.id.toString() !== params.id) {
+      dispatch(fetchFilmAction(params.id));
+    }
+  }, [dispatch, film?.id, params.id]);
+
+  if (isFilmDataLoading) {
+    return <LoadingScreen />;
+  }
+
+  if(film === undefined) {
     return <NotFoundScreen />;
   }
+
   return (
     <section className="film-card film-card--full">
       <Helmet>

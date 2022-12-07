@@ -1,20 +1,16 @@
 import { createMemoryHistory } from 'history';
-import { render, screen } from '@testing-library/react';
-import HistoryRouter from '../history-route/history-route';
+import { screen } from '@testing-library/react';
 import FilmTabDetails from './film-tab-details';
 import { mockFilm } from '../../mocks/mocks';
 import { getFormatDetailsFilmRunTime } from '../../util';
+import { renderWithHistoryRouter } from '../../test-utils/test-utils';
 
 const history = createMemoryHistory();
 const film = mockFilm;
 describe('Component: FilmTabDetails', () => {
   it('should render correctly', () => {
 
-    render(
-      <HistoryRouter history={history}>
-        <FilmTabDetails film={film} />
-      </HistoryRouter>
-    );
+    renderWithHistoryRouter(<FilmTabDetails film={film} />, history);
 
     expect(screen.getByText(/Director/)).toBeInTheDocument();
     expect(screen.getByText(/Starring/)).toBeInTheDocument();

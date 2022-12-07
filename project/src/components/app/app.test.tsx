@@ -1,9 +1,9 @@
-import {render, screen} from '@testing-library/react';
-import {createMemoryHistory} from 'history';
-import {Provider} from 'react-redux';
-import {configureMockStore} from '@jedmao/redux-mock-store';
+import { render, screen } from '@testing-library/react';
+import { createMemoryHistory } from 'history';
+import { Provider } from 'react-redux';
+import { configureMockStore } from '@jedmao/redux-mock-store';
 import HistoryRouter from '../history-route/history-route';
-import {AuthorizationStatus, AppRoute} from '../../const';
+import { AuthorizationStatus, AppRoute } from '../../const';
 import App from './app';
 import { mockFilm, mockFilms, mockReviews } from '../../mocks/mocks';
 import thunk from 'redux-thunk';
@@ -20,15 +20,15 @@ const noop = jest.fn();
 Object.defineProperty(window, 'scrollTo', { value: noop, writable: true });
 
 const store = mockStore({
-  USER: {authorizationStatus: AuthorizationStatus.NoAuth},
-  DATA: {promoFilm: promoFilm, film: film, similarFilms: similarFilms, favoriteFilms: favoriteFilms, films: films, reviews: reviews},
-  FILMS: {genre: genre}
+  USER: { authorizationStatus: AuthorizationStatus.NoAuth },
+  DATA: { promoFilm: promoFilm, film: film, similarFilms: similarFilms, favoriteFilms: favoriteFilms, films: films, reviews: reviews },
+  FILMS: { genre: genre }
 });
 
 const authStore = mockStore({
-  USER: {authorizationStatus: AuthorizationStatus.Auth},
-  DATA: {promoFilm: promoFilm, film: film, similarFilms: similarFilms, favoriteFilms: favoriteFilms, films: films, reviews: reviews},
-  FILMS: {genre: genre}
+  USER: { authorizationStatus: AuthorizationStatus.Auth },
+  DATA: { promoFilm: promoFilm, film: film, similarFilms: similarFilms, favoriteFilms: favoriteFilms, films: films, reviews: reviews },
+  FILMS: { genre: genre }
 });
 
 const history = createMemoryHistory();

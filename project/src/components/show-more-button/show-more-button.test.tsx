@@ -1,17 +1,13 @@
 import { createMemoryHistory } from 'history';
-import { render, screen } from '@testing-library/react';
-import HistoryRouter from '../history-route/history-route';
+import { screen } from '@testing-library/react';
 import ShowMoreButton from './show-more-button';
+import { renderWithHistoryRouter } from '../../test-utils/test-utils';
 
 const history = createMemoryHistory();
 describe('Component: ShowMoreButton', () => {
   it('should render correctly', () => {
 
-    render(
-      <HistoryRouter history={history}>
-        <ShowMoreButton onClick={jest.fn()}/>
-      </HistoryRouter>
-    );
+    renderWithHistoryRouter(<ShowMoreButton onClick={jest.fn()}/>, history);
 
     expect(screen.getByText(/Show more/)).toBeInTheDocument();
   });

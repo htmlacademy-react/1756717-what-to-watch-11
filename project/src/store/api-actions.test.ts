@@ -6,9 +6,11 @@ import {Action} from 'redux';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import { APIRoute } from '../const';
-import { checkAuthAction, commentAction, fetchFavoriteFilmsAction, fetchFilmAction, fetchFilmReviewsAction, fetchFilmsAction, fetchPromoFilmAction, fetchSimilarFilmsAction, setFavoriteFilmAction } from './api-actions';
+import { checkAuthAction, commentAction, fetchFavoriteFilmsAction, fetchFilmAction, fetchFilmReviewsAction, fetchFilmsAction, fetchPromoFilmAction, fetchSimilarFilmsAction, loginAction, logoutAction, setFavoriteFilmAction } from './api-actions';
 import { mockFilm, mockFilms, mockReviews } from '../mocks/mocks';
 import { NewReview } from '../types/reviews';
+import { AuthData } from '../types/auth-data';
+import { redirectToRoute } from './action';
 
 
 describe('Async actions', () => {
@@ -40,6 +42,52 @@ describe('Async actions', () => {
     ]);
   });
 
+  it('should dispatch RequriedAuthorization and RedirectToRoute when POST /login', async () => {
+    const fakeUser: AuthData = {login: 'test@test.ru', password: '123456'};
+
+    mockAPI
+      .onPost(APIRoute.Login)
+      .reply(200, {token: 'secret'});
+
+
+    const store = mockStore();
+    Storage.prototype.setItem = jest.fn();
+
+    await store.dispatch(loginAction(fakeUser));
+
+    const actions = store.getActions().map(({type}) => type);
+
+    expect(actions).toEqual([
+      loginAction.pending.type,
+      redirectToRoute.type,
+      checkAuthAction.pending.type,
+      loginAction.fulfilled.type
+    ]);
+
+    expect(Storage.prototype.setItem).toBeCalledTimes(1);
+    expect(Storage.prototype.setItem).toBeCalledWith('wtw-token', 'secret');
+  });
+
+  it('should dispatch Logout when Delete /logout', async () => {
+    mockAPI
+      .onDelete(APIRoute.Logout)
+      .reply(204);
+
+    const store = mockStore();
+    Storage.prototype.removeItem = jest.fn();
+
+    await store.dispatch(logoutAction());
+
+    const actions = store.getActions().map(({type}) => type);
+
+    expect(actions).toEqual([
+      logoutAction.pending.type,
+      logoutAction.fulfilled.type
+    ]);
+
+    expect(Storage.prototype.removeItem).toBeCalledTimes(1);
+    expect(Storage.prototype.removeItem).toBeCalledWith('wtw-token');
+  });
   it('should dispatch loadFilms when GET /films', async () => {
     const films = mockFilms;
     mockAPI

@@ -1,20 +1,16 @@
 import { createMemoryHistory } from 'history';
-import { render, screen } from '@testing-library/react';
-import HistoryRouter from '../history-route/history-route';
+import { screen } from '@testing-library/react';
 import { mockFilm } from '../../mocks/mocks';
 import FilmTabOverview from './film-tab-overview';
 import { getRatingLevel, getRowList } from '../../util';
+import { renderWithHistoryRouter } from '../../test-utils/test-utils';
 
 const history = createMemoryHistory();
 const film = mockFilm;
 describe('Component: FilmTabOverview', () => {
   it('should render correctly', () => {
 
-    render(
-      <HistoryRouter history={history}>
-        <FilmTabOverview film={film} />
-      </HistoryRouter>
-    );
+    renderWithHistoryRouter(<FilmTabOverview film={film} />, history);
 
     const ratings = `${film.scoresCount} ratings`;
     const director = `Director: ${film.director}`;

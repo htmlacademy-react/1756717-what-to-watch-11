@@ -1,6 +1,6 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { APIRoute } from '../../const';
+import { APIRoute, CommentLength } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { commentAction } from '../../store/api-actions';
 import { setReviewFormDisabled } from '../../store/films-data/films-data';
@@ -22,19 +22,17 @@ function ReviewForm(): JSX.Element {
 
   const isReviewFormDisabled = useAppSelector(getReviewFormAvailabilityStatus);
 
-  const [isReviewFormValid, setReviewFormValid] = useState<boolean>(false);
-
-  const checkReviewFormValid = () => formData.rating !== null && formData.comment.length >= 50 && formData.comment.length <= 400;
+  const isReviewFormValid = useMemo(() =>
+    formData.rating !== null && formData.comment.length >= CommentLength.Min && formData.comment.length <= CommentLength.Max,
+  [formData.rating, formData.comment]);
 
   const handleRatingValueChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setRatingValue(Number(evt.target.value));
-    setReviewFormValid(checkReviewFormValid());
     setFormData({ ...formData, rating: Number(evt.target.value) });
   };
 
   const handleTextChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
     if (evt.target.value) {
-      setReviewFormValid(checkReviewFormValid());
       setFormData({ ...formData, comment: evt.target.value });
     } else {
       setFormData({ ...formData, comment: '' });
@@ -45,7 +43,7 @@ function ReviewForm(): JSX.Element {
     evt.preventDefault();
     dispatch(setReviewFormDisabled(true));
 
-    if (formData.rating && formData.comment && film) {
+    if (formData.rating && formData.comment && film && isReviewFormValid) {
       const [comment, rating] = [formData.comment, formData.rating];
       dispatch(commentAction([film.id, {comment, rating}]));
       navigate(`${APIRoute.Films}/${film.id.toString()}`);

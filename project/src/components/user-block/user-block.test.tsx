@@ -1,13 +1,11 @@
 import { createMemoryHistory } from 'history';
-import { render, screen } from '@testing-library/react';
-import HistoryRouter from '../history-route/history-route';
+import { screen } from '@testing-library/react';
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import { Provider } from 'react-redux';
 import UserBlock from './user-block';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import thunk from 'redux-thunk';
 import userEvent from '@testing-library/user-event';
-import { Route, Routes } from 'react-router-dom';
+import { renderWithReduxAndHistoryRoater, renderWithReduxHistoryRoaterAndRoutes } from '../../test-utils/test-utils';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore([thunk]);
@@ -19,13 +17,7 @@ describe('Component: UserBlock', () => {
     const store = mockStore({
       USER: { authorizationStatus: authorizationStatus }
     });
-    render(
-      <Provider store={store}>
-        <HistoryRouter history={history}>
-          <UserBlock />
-        </HistoryRouter>
-      </Provider>,
-    );
+    renderWithReduxAndHistoryRoater(<UserBlock />, store, history);
 
     expect(screen.getByText(/Sign out/)).toBeInTheDocument();
     expect(screen.getByAltText('User avatar')).toBeInTheDocument();
@@ -38,13 +30,7 @@ describe('Component: UserBlock', () => {
     const store = mockStore({
       USER: { authorizationStatus: authorizationStatus }
     });
-    render(
-      <Provider store={store}>
-        <HistoryRouter history={history}>
-          <UserBlock />
-        </HistoryRouter>
-      </Provider>,
-    );
+    renderWithReduxAndHistoryRoater(<UserBlock />, store, history);
 
     expect(screen.getByText(/Sign in/)).toBeInTheDocument();
   });
@@ -56,13 +42,7 @@ describe('Component: UserBlock', () => {
     const store = mockStore({
       USER: { authorizationStatus: authorizationStatus }
     });
-    render(
-      <Provider store={store}>
-        <HistoryRouter history={history}>
-          <UserBlock />
-        </HistoryRouter>
-      </Provider>,
-    );
+    renderWithReduxAndHistoryRoater(<UserBlock />, store, history);
 
     await userEvent.click(screen.getByRole('link'));
 
@@ -78,23 +58,7 @@ describe('Component: UserBlock', () => {
     const store = mockStore({
       USER: { authorizationStatus: authorizationStatus }
     });
-    render(
-      <Provider store={store}>
-        <HistoryRouter history={history}>
-          <Routes>
-            <Route
-              path={AppRoute.Main}
-              element={<UserBlock />}
-            />
-            <Route
-              path={AppRoute.SignIn}
-              element={<h1>Auth Screen</h1>}
-            />
-          </Routes>
-          <UserBlock />
-        </HistoryRouter>
-      </Provider>,
-    );
+    renderWithReduxHistoryRoaterAndRoutes(store, history, AppRoute.Main, <UserBlock />, AppRoute.SignIn, <h1>Auth Screen</h1>);
 
     await userEvent.click(screen.getAllByRole('link')[0]);
 

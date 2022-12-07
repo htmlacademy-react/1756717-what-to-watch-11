@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AppRoute, PLAYER_DELAY } from '../../const';
 import { Film } from '../../types/films';
 import VideoPlayer from '../video-player/video-player';
@@ -9,6 +9,7 @@ type FilmCardProps = {
 }
 
 function FilmCard({ film }: FilmCardProps): JSX.Element {
+  const navigate = useNavigate();
   const [isActive, setActiveCard] = useState(false);
 
   let timeoutID: NodeJS.Timeout;
@@ -26,7 +27,7 @@ function FilmCard({ film }: FilmCardProps): JSX.Element {
   };
 
   return (
-    <article className="small-film-card catalog__films-card" id={film.id.toString()} onMouseEnter={handleFilmCardMouseEnter} onMouseLeave={handleFilmCardMouseLeave} data-testid="film">
+    <article className="small-film-card catalog__films-card" id={film.id.toString()} onMouseEnter={handleFilmCardMouseEnter} onMouseLeave={handleFilmCardMouseLeave} onClick={() => navigate(`${AppRoute.Film}/${film.id}`)} data-testid="film">
       <div className="small-film-card__image">
         {
           isActive ?

@@ -5,7 +5,7 @@ export enum AppRoute {
   SignIn = '/login',
   MyList = '/mylist',
   Film = '/films',
-  AddReview = '/review',
+  AddReview = 'review',
   Player = '/player',
 }
 
@@ -42,3 +42,7 @@ export enum NameSpace {
   Films = 'FILMS',
 }
 
+export enum CommentLength {
+  Min = 50,
+  Max = 400,
+}
