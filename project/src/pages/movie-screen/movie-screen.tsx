@@ -7,7 +7,7 @@ import { AppRoute, AuthorizationStatus, FilmSettings } from '../../const';
 import FilmsList from '../../components/films-list/films-list';
 import FilmTabs from '../../components/film-tabs/film-tabs';
 import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { fetchFavoriteFilmsAction, fetchFilmAction, fetchFilmReviewsAction, fetchSimilarFilmsAction } from '../../store/api-actions';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { getFilm, getFilmDataLoadingStatus, getFilmReviews, getFilmReviewsDataLoadingStatus, getSimilarFilms, getSimilarFilmsDataLoadingStatus } from '../../store/films-data/selectors';
@@ -43,7 +43,7 @@ function MovieScreen(): JSX.Element {
   const isFilmReviewsLoading = useAppSelector(getFilmReviewsDataLoadingStatus);
   const isSimilarFilmsLoading = useAppSelector(getSimilarFilmsDataLoadingStatus);
 
-  if (film === undefined) {
+  if (!film) {
     return <NotFoundScreen />;
   }
 

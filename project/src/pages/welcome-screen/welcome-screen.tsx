@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import FilmsList from '../../components/films-list/films-list';
 import UserBlock from '../../components/user-block/user-block';
 import GenresList from '../../components/genres-list/genres-list';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { getFilmsSelectedByGenre } from '../../util';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import { useEffect } from 'react';
@@ -25,7 +25,7 @@ function WelcomeScreen(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   useEffect(() => {
-    if (films.length <= 0) {
+    if (!films.length) {
       dispatch(fetchFilmsAction());
     }
   }, [films, dispatch]);

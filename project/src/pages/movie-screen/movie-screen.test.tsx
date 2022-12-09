@@ -6,7 +6,7 @@ import thunk from 'redux-thunk';
 import userEvent from '@testing-library/user-event';
 import MovieScreen from './movie-screen';
 import { mockFilm, mockFilms } from '../../mocks/mocks';
-import { renderWithReduxAndHistoryRoaterWithHelmet, renderWithReduxHistoryRoaterHelmetAndRoutes } from '../../test-utils/test-utils';
+import { renderWithReduxAndHistoryRouterWithHelmet, renderWithReduxHistoryRouterHelmetAndRoutes } from '../../test-utils/test-utils';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore([thunk]);
@@ -22,7 +22,7 @@ describe('Component: MovieScreen', () => {
       DATA: { film: film, similarFilms: similarFilms, favoriteFilms: favoriteFilms },
       USER: {authorizationStatus: authorizationStatus}
     });
-    renderWithReduxAndHistoryRoaterWithHelmet(<MovieScreen />, store, history);
+    renderWithReduxAndHistoryRouterWithHelmet(<MovieScreen />, store, history);
 
     expect(screen.getByText(/Play/)).toBeInTheDocument();
     expect(screen.getByText(/More like this/)).toBeInTheDocument();
@@ -38,7 +38,7 @@ describe('Component: MovieScreen', () => {
       DATA: { film: film, similarFilms: similarFilms, favoriteFilms: favoriteFilms },
       USER: {authorizationStatus: authorizationStatus}
     });
-    renderWithReduxAndHistoryRoaterWithHelmet(<MovieScreen />, store, history);
+    renderWithReduxAndHistoryRouterWithHelmet(<MovieScreen />, store, history);
 
     expect(screen.getByText(/Play/)).toBeInTheDocument();
     expect(screen.getByText(/More like this/)).toBeInTheDocument();
@@ -56,7 +56,7 @@ describe('Component: MovieScreen', () => {
       USER: {authorizationStatus: authorizationStatus}
     });
 
-    renderWithReduxHistoryRoaterHelmetAndRoutes(store, history, `${AppRoute.Film}/${film.id}`, <MovieScreen />, `${AppRoute.Player}/${film.id}`, <h1>Player Screen</h1>);
+    renderWithReduxHistoryRouterHelmetAndRoutes(store, history, `${AppRoute.Film}/${film.id}`, <MovieScreen />, `${AppRoute.Player}/${film.id}`, <h1>Player Screen</h1>);
 
     await userEvent.click(screen.getByTestId('play-button'));
     expect(screen.getByText('Player Screen')).toBeInTheDocument();

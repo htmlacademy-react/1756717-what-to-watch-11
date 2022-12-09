@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { APIRoute, CommentLength } from '../../const';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { commentAction } from '../../store/api-actions';
 import { setReviewFormDisabled } from '../../store/films-data/films-data';
 import { getFilm, getReviewFormAvailabilityStatus } from '../../store/films-data/selectors';
@@ -23,7 +23,7 @@ function ReviewForm(): JSX.Element {
   const isReviewFormDisabled = useAppSelector(getReviewFormAvailabilityStatus);
 
   const isReviewFormValid = useMemo(() =>
-    formData.rating !== null && formData.comment.length >= CommentLength.Min && formData.comment.length <= CommentLength.Max,
+    formData.rating && formData.comment.length >= CommentLength.Min && formData.comment.length <= CommentLength.Max,
   [formData.rating, formData.comment]);
 
   const handleRatingValueChange = (evt: ChangeEvent<HTMLInputElement>) => {

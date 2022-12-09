@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getFormatPlayerTime } from '../../util';
 import { APIRoute } from '../../const';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { getFilm, getFilmDataLoadingStatus } from '../../store/films-data/selectors';
 import { fetchFilmAction } from '../../store/api-actions';
 import { useEffect, useRef, useState } from 'react';
@@ -40,7 +40,7 @@ function PlayerScreen(): JSX.Element {
     let isVideoPlayerMounted = true;
     const videoRefCurrentProp = videoRef.current;
 
-    if (videoRefCurrentProp === null) {
+    if (!videoRefCurrentProp) {
       return;
     }
 
@@ -68,7 +68,7 @@ function PlayerScreen(): JSX.Element {
   });
 
   useEffect(() => {
-    if (videoRef.current === null) {
+    if (!videoRef.current) {
       return;
     }
 
@@ -85,7 +85,7 @@ function PlayerScreen(): JSX.Element {
   const isFilmDataLoading = useAppSelector(getFilmDataLoadingStatus);
 
 
-  if (film === undefined) {
+  if (!film) {
     return <NotFoundScreen />;
   }
 
@@ -95,7 +95,7 @@ function PlayerScreen(): JSX.Element {
   };
 
   const handlePauseButtonClick = () => {
-    if (videoRef.current === null) {
+    if (!videoRef.current) {
       return;
     }
     videoRef.current.pause();
@@ -103,7 +103,7 @@ function PlayerScreen(): JSX.Element {
   };
 
   const handlePlayButtonClick = () => {
-    if (videoRef.current === null) {
+    if (!videoRef.current) {
       return;
     }
     videoRef.current.play();

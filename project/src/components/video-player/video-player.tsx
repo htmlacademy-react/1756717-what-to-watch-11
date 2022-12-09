@@ -12,7 +12,7 @@ function VideoPlayer({ film }: VideoPlayerProps): JSX.Element {
   useEffect(() => {
     let isVideoPlayerMounted = true;
 
-    if (videoRef.current === null) {
+    if (!videoRef.current) {
       return;
     }
 

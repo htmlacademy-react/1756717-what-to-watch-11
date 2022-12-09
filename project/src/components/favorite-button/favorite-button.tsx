@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { setFavoriteFilmAction } from '../../store/api-actions';
 import { getFavoriteFilms } from '../../store/films-data/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
@@ -24,11 +24,7 @@ function FavoriteButton({ filmId }: FavoriteButtonProps): JSX.Element {
       navigate(AppRoute.SignIn);
       return;
     }
-    if (!isFilmFavorite) {
-      dispatch(setFavoriteFilmAction([filmId, true]));
-    } else {
-      dispatch(setFavoriteFilmAction([filmId, false]));
-    }
+    dispatch(setFavoriteFilmAction([filmId, !isFilmFavorite]));
   };
 
   return (

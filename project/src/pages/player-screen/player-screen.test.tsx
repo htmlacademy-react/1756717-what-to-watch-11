@@ -6,7 +6,7 @@ import thunk from 'redux-thunk';
 import userEvent from '@testing-library/user-event';
 import { mockFilm } from '../../mocks/mocks';
 import PlayerScreen from './player-screen';
-import { renderWithReduxAndHistoryRoaterWithHelmet, renderWithReduxHistoryRoaterHelmetAndRoutes } from '../../test-utils/test-utils';
+import { renderWithReduxAndHistoryRouterWithHelmet, renderWithReduxHistoryRouterHelmetAndRoutes } from '../../test-utils/test-utils';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore([thunk]);
@@ -23,7 +23,7 @@ describe('Component: PlayerScreen', () => {
     const store = mockStore({
       DATA: { film: film },
     });
-    renderWithReduxAndHistoryRoaterWithHelmet(<PlayerScreen />, store, history);
+    renderWithReduxAndHistoryRouterWithHelmet(<PlayerScreen />, store, history);
 
     expect(screen.getByText(/Exit/)).toBeInTheDocument();
     expect(screen.getByTestId('video')).toBeInTheDocument();
@@ -36,7 +36,7 @@ describe('Component: PlayerScreen', () => {
       DATA: { film: film },
     });
 
-    renderWithReduxHistoryRoaterHelmetAndRoutes(store, history, `${AppRoute.Player}/${film.id}`, <PlayerScreen />, `${AppRoute.Film}/${film.id}`, <h1>Movie Screen</h1>);
+    renderWithReduxHistoryRouterHelmetAndRoutes(store, history, `${AppRoute.Player}/${film.id}`, <PlayerScreen />, `${AppRoute.Film}/${film.id}`, <h1>Movie Screen</h1>);
 
     await userEvent.click(screen.getByText(/Exit/));
     expect(screen.getByText('Movie Screen')).toBeInTheDocument();

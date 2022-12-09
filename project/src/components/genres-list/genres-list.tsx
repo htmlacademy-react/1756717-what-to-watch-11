@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import { MouseEvent, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { getFilms } from '../../store/films-data/selectors';
 import { changeGenre, resetFilmsInListAmount } from '../../store/films-process/films-process';
 import { getGenre } from '../../store/films-process/selectors';
