@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import FilmsList from '../../components/films-list/films-list';
 import Logo from '../../components/logo/logo';
 import UserBlock from '../../components/user-block/user-block';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { fetchFavoriteFilmsAction } from '../../store/api-actions';
 import { getFavoriteFilms, getFavoriteFilmsDataLoadingStatus } from '../../store/films-data/selectors';
 import LoadingScreen from '../loading-screen/loading-screen';

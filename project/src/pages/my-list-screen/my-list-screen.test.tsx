@@ -5,7 +5,7 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 import thunk from 'redux-thunk';
 import { mockFilms } from '../../mocks/mocks';
 import MyListScreen from './my-list-screen';
-import { renderWithReduxAndHistoryRoaterWithHelmet } from '../../test-utils/test-utils';
+import { renderWithReduxAndHistoryRouterWithHelmet } from '../../test-utils/test-utils';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore([thunk]);
@@ -19,7 +19,7 @@ describe('Component: MyListScreen', () => {
       DATA: { favoriteFilms: favoriteFilms },
       USER: {authorizationStatus: authorizationStatus}
     });
-    renderWithReduxAndHistoryRoaterWithHelmet(<MyListScreen />, store, history);
+    renderWithReduxAndHistoryRouterWithHelmet(<MyListScreen />, store, history);
 
     expect(screen.getByText(/My list/)).toBeInTheDocument();
   });

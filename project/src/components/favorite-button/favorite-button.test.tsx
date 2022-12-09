@@ -5,7 +5,7 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import { mockFilm, mockFilms } from '../../mocks/mocks';
 import userEvent from '@testing-library/user-event';
 import thunk from 'redux-thunk';
-import { renderWithReduxAndHistoryRoater } from '../../test-utils/test-utils';
+import { renderWithReduxAndHistoryRouter } from '../../test-utils/test-utils';
 import { AuthorizationStatus } from '../../const';
 
 const history = createMemoryHistory();
@@ -21,7 +21,7 @@ const filmId = film.id;
 describe('Component: FavoriteButton', () => {
   it('should render correctly', () => {
 
-    renderWithReduxAndHistoryRoater(<FavoriteButton filmId={filmId} />, store, history);
+    renderWithReduxAndHistoryRouter(<FavoriteButton filmId={filmId} />, store, history);
 
     expect(screen.getByText(/My list/)).toBeInTheDocument();
     expect(screen.getByRole('button')).toBeInTheDocument();
@@ -30,7 +30,7 @@ describe('Component: FavoriteButton', () => {
 
   it('should dispatch setFavoriteFilmAction when user clicked to the button', async () => {
 
-    renderWithReduxAndHistoryRoater(<FavoriteButton filmId={filmId} />, store, history);
+    renderWithReduxAndHistoryRouter(<FavoriteButton filmId={filmId} />, store, history);
 
     await userEvent.click(screen.getByRole('button'));
 

@@ -5,7 +5,7 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 import thunk from 'redux-thunk';
 import userEvent from '@testing-library/user-event';
 import AuthScreen from './auth-screen';
-import { renderWithReduxAndHistoryRoaterWithHelmet, renderWithReduxHistoryRoaterHelmetAndRoutes } from '../../test-utils/test-utils';
+import { renderWithReduxAndHistoryRouterWithHelmet, renderWithReduxHistoryRouterHelmetAndRoutes } from '../../test-utils/test-utils';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore([thunk]);
@@ -17,7 +17,7 @@ describe('Component: AuthScreen', () => {
     const store = mockStore({
       USER: { authorizationStatus: authorizationStatus }
     });
-    renderWithReduxAndHistoryRoaterWithHelmet(<AuthScreen />, store, history);
+    renderWithReduxAndHistoryRouterWithHelmet(<AuthScreen />, store, history);
 
     expect(screen.getAllByText(/Sign in/).length).toBe(2);
     expect(screen.getByRole('button')).toBeInTheDocument();
@@ -30,7 +30,7 @@ describe('Component: AuthScreen', () => {
     const store = mockStore({
       USER: { authorizationStatus: authorizationStatus }
     });
-    renderWithReduxAndHistoryRoaterWithHelmet(<AuthScreen />, store, history);
+    renderWithReduxAndHistoryRouterWithHelmet(<AuthScreen />, store, history);
 
     await userEvent.type(screen.getByPlaceholderText('Email address'), 'elis@mail.ru');
     await userEvent.type(screen.getByPlaceholderText('Password'), '159357');
@@ -52,7 +52,7 @@ describe('Component: AuthScreen', () => {
     const store = mockStore({
       USER: { authorizationStatus: authorizationStatus }
     });
-    renderWithReduxHistoryRoaterHelmetAndRoutes(store, history, AppRoute.SignIn, <AuthScreen />, AppRoute.Main, <h1>Main Screen</h1>);
+    renderWithReduxHistoryRouterHelmetAndRoutes(store, history, AppRoute.SignIn, <AuthScreen />, AppRoute.Main, <h1>Main Screen</h1>);
 
     expect(screen.getByText('Main Screen')).toBeInTheDocument();
   });

@@ -6,7 +6,7 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 import userEvent from '@testing-library/user-event';
 import WelcomeScreen from './welcome-screen';
 import thunk from 'redux-thunk';
-import { renderWithReduxAndHistoryRoaterWithHelmet, renderWithReduxHistoryRoaterHelmetAndRoutes } from '../../test-utils/test-utils';
+import { renderWithReduxAndHistoryRouterWithHelmet, renderWithReduxHistoryRouterHelmetAndRoutes } from '../../test-utils/test-utils';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore([thunk]);
@@ -22,7 +22,7 @@ const store = mockStore({
 describe('Component: ReviewScreen', () => {
   it('should render correctly', () => {
 
-    renderWithReduxAndHistoryRoaterWithHelmet(<WelcomeScreen />, store, history);
+    renderWithReduxAndHistoryRouterWithHelmet(<WelcomeScreen />, store, history);
 
     expect(screen.getAllByText(promoFilm.name)[0]).toBeInTheDocument();
     expect(screen.getByText(promoFilm.released.toString())).toBeInTheDocument();
@@ -31,7 +31,7 @@ describe('Component: ReviewScreen', () => {
   it('should redirect to player screen if user clicks on the promo film\'s play button', async () => {
     history.push(AppRoute.Main);
 
-    renderWithReduxHistoryRoaterHelmetAndRoutes(store, history, AppRoute.Main, <WelcomeScreen />, `${AppRoute.Player}/${promoFilm.id}`, <h1>Player Screen</h1>);
+    renderWithReduxHistoryRouterHelmetAndRoutes(store, history, AppRoute.Main, <WelcomeScreen />, `${AppRoute.Player}/${promoFilm.id}`, <h1>Player Screen</h1>);
 
     await userEvent.click(screen.getByTestId('play-button'));
     expect(screen.getByText('Player Screen')).toBeInTheDocument();

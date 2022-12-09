@@ -6,7 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import { store } from './store';
 import { checkAuthAction } from './store/api-actions';
 import 'react-toastify/dist/ReactToastify.css';
-import HistoryRouter from './components/history-route/history-route';
+import HistoryRouter from './components/history-router/history-router';
 import browserHistory from './browser-history';
 
 store.dispatch(checkAuthAction());

@@ -5,7 +5,7 @@ import { mockFilm } from '../../mocks/mocks';
 import ReviewForm from './review-form';
 import userEvent from '@testing-library/user-event';
 import thunk from 'redux-thunk';
-import { renderWithReduxAndHistoryRoater } from '../../test-utils/test-utils';
+import { renderWithReduxAndHistoryRouter } from '../../test-utils/test-utils';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore([thunk]);
@@ -17,7 +17,7 @@ const store = mockStore({
 describe('Component: ReviewForm', () => {
   it('should render correctly', () => {
 
-    renderWithReduxAndHistoryRoater(<ReviewForm />, store, history);
+    renderWithReduxAndHistoryRouter(<ReviewForm />, store, history);
 
     expect(screen.getByText(/Post/)).toBeInTheDocument();
     expect(screen.getAllByRole('radio').length).toBe(10);
@@ -26,7 +26,7 @@ describe('Component: ReviewForm', () => {
 
   it('should dispatch addCommentAction when the form is valid and user clicks the button to submit', async () => {
 
-    renderWithReduxAndHistoryRoater(<ReviewForm />, store, history);
+    renderWithReduxAndHistoryRouter(<ReviewForm />, store, history);
 
     await userEvent.click(screen.getByText(/Rating 8/));
     await userEvent.type(screen.getByPlaceholderText('Review text'), 'The editing is a mess, and the transitions of the plot or characters are rather strange.');

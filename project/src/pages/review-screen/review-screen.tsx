@@ -4,7 +4,7 @@ import { AppRoute } from '../../const';
 import Logo from '../../components/logo/logo';
 import UserBlock from '../../components/user-block/user-block';
 import ReviewForm from '../../components/review-form/review-form';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { getFilm, getFilmDataLoadingStatus } from '../../store/films-data/selectors';
 import { useEffect } from 'react';
 import { fetchFilmAction } from '../../store/api-actions';
@@ -24,11 +24,11 @@ function ReviewScreen(): JSX.Element {
     }
   }, [dispatch, film?.id, params.id]);
 
-  if (isFilmDataLoading) {
+  if (isFilmDataLoading && film) {
     return <LoadingScreen />;
   }
 
-  if(film === undefined) {
+  if(!film) {
     return <NotFoundScreen />;
   }
 

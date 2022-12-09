@@ -10,7 +10,7 @@ import MovieScreen from '../../pages/movie-screen/movie-screen';
 import AuthScreen from '../../pages/auth-screen/auth-screen';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import PrivateRoute from '../private-route/private-route';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks/hooks';
 import { getAuthCheckedStatus, getAuthorizationStatus } from '../../store/user-process/selectors';
 import { getFilmsDataLoadingStatus } from '../../store/films-data/selectors';
 
